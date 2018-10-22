@@ -3,7 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
+// 使用axios库，进行ajax调用
+Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
