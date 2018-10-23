@@ -16,12 +16,12 @@ export default {
   mounted() {
     this.axios.post("http://api.komavideo.com/news/list").then(body => {
       this.content = body.data;
-    });
+    })
   },
   methods: {
-    show: function(){
+    show:function(){
         alert(JSON.stringify(this.content[0].title));
-    },
+    }
   }
 };
 </script>

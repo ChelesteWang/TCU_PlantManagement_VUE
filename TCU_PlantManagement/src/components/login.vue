@@ -21,7 +21,7 @@ export default {
       next();
   },
   methods: {
-    show: function(){
+    show: function (){
         alert("login");
     },
   }
