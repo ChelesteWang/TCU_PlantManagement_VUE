@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <!-- <img src="./assets/logo.png">
     <hr>
 
     <h5>按钮+bootstrap</h5>
@@ -19,37 +19,59 @@
 
     <h5>引入外部css或者文件内css</h5>
     <div class="cs"></div>
-    <hr>
+    <hr> -->
     
     <router-view/>
   </div>
 </template>
 
 <script>
-import 'bootstrap/dist/css/bootstrap.css'
+import "bootstrap/dist/css/bootstrap.css";
+import "./assets/css/bootstrap.min.css";
+import "./assets/css/core.css";
+import "./assets/css/icons.css";
+import "./assets/css/components.css";
+import "./assets/css/pages.css";
+import "./assets/css/menu.css";
+import "./assets/css/responsive.css";
+
+import "./assets/plugins/sweetalert/dist/sweetalert.css";
+
 export default {
-  name: 'App',
+  name: "App",
   methods: {
-    show: function(){
-        alert("测试APP.VUE...");
+    show: function() {
+      alert("测试APP.VUE...");
     },
     router(uid) {
-        this.$router.push({ path: `/login/${uid}` });
+      this.$router.push({ path: `/login/${uid}` });
+    } 
+  },
+  components: {
+    "remote-js": {
+      render(createElement) {
+        return createElement("script", {
+          attrs: { type: "text/javascript", src: this.src }
+        });
+      },
+      props: {
+        src: { type: String, required: true }
+      }
     }
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
-.cs{
+.cs {
   margin-top: 10px;
   background-color: black;
   height: 20px;

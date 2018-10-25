@@ -10,6 +10,15 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+  if (to.meta.needLogin) {
+    // alert('需要登录')
+    next()
+  } else {
+    next()
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
