@@ -18,7 +18,24 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+Vue.component('remote-script', {
+  render: function (createElement) {
+    // var self = this
+    return createElement('script', {
+      attrs: {
+        type: 'text/javascript',
+        src: this.src
+      }
+    })
+  },
 
+  props: {
+    src: {
+      type: String,
+      required: true
+    }
+  }
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

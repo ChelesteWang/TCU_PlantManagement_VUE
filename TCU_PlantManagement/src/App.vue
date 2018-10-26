@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
 import "./assets/css/bootstrap.min.css";
 import "./assets/css/core.css";
 import "./assets/css/icons.css";
@@ -35,7 +35,7 @@ import "./assets/css/pages.css";
 import "./assets/css/menu.css";
 import "./assets/css/responsive.css";
 
-import "./assets/plugins/sweetalert/dist/sweetalert.css";
+import "../static/plugins/sweetalert/dist/sweetalert.css";
 
 export default {
   name: "App",
@@ -63,14 +63,6 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 .cs {
   margin-top: 10px;
   background-color: black;

@@ -5,6 +5,8 @@ import login from '@/components/login'
 import register from '@/components/register'
 import recoverypw from '@/components/recoverypw'
 import welcome from '@/components/welcome'
+import ceshi from '@/components/ceshi'
+import menu from '@/components/menu'
 
 Vue.use(Router)
 
@@ -42,6 +44,16 @@ export default new Router({
       path: '/welcome',
       name: 'welcome',
       component: welcome
+    },
+    {
+      path: '/ceshi',
+      name: 'ceshi',
+      component: ceshi
+    },
+    {
+      path: '/menu',
+      name: 'menu',
+      component: menu
     }
   ]
 })

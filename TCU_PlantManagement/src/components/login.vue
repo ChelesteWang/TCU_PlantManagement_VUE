@@ -9,11 +9,11 @@
                 <div class="bg-overlay"></div>
                 <h3 class="text-center m-t-10 text-white"> 天津城建大学 </h3>
                 <br>
-                <h3 style="color:white;font-size:30px;">校园植物信息管理系统</h3> 
+                <h3 class="text-center text-white" style="font-size:30px;">校园植物信息管理系统</h3> 
             </div>
 
-            <div class="panel-body">
-                <form class="form-horizontal m-t-20">
+            <form class="panel-body" onsubmit=''>
+                <div class="form-horizontal m-t-20">
 
                     <div class="form-group">
                         <div class="col-xs-12">
@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <div class="col-xs-12">
                             <div class="checkbox checkbox-primary">
-                                <input id="checkbox-signup" type="checkbox">
+                                <input id="checkbox-signup" type="checkbox" v-model="check">
                                 <label for="checkbox-signup">
                                     记住我
                                 </label>
@@ -53,12 +53,12 @@
                             <a @click="register()" href="/#/register">创建新用户</a>
                         </div>
                     </div>
-                </form>
-            </div>
-
+                </div>
+            </form>
+            <!-- <h3>{{check}}</h3> -->
         </div>
     </div>
-    <remote-js src="./assets/js/modernizr.min.js"></remote-js>
+    <!-- <remote-js src="./assets/js/modernizr.min.js"></remote-js>
     <remote-js src="./assets/js/jquery.min.js"></remote-js>
     <remote-js src="./assets/js/bootstrap.min.js"></remote-js>
     <remote-js src="./assets/js/detect.js"></remote-js>
@@ -72,7 +72,7 @@
     <remote-js src="./assets/js/jquery.app.js"></remote-js>
 
     <remote-js src="./assets/plugins/sweetalert/dist/sweetalert.min.js"></remote-js>
-    <remote-js src="./assets/pages/jquery.sweet-alert.init.js"></remote-js>
+    <remote-js src="./assets/pages/jquery.sweet-alert.init.js"></remote-js> -->
   </div>
 </template>
 
@@ -84,7 +84,8 @@ export default {
     return {
       userName: "",
       passWord: "",
-      judge: ""
+      judge: "",
+      check:true
     };
   },
   mounted() {
@@ -110,7 +111,7 @@ export default {
                 var ses = window.sessionStorage;
                 var d = JSON.stringify(res.data);
                 ses.setItem("data", d);
-                this.$router.push("/welcome");
+                this.$router.push("/menu");
             } else {
                 alert("账号或者密码不正确！");
             }
@@ -120,6 +121,9 @@ export default {
     },
     register:function(){
         //this.$router.push('/register');
+    },
+    select(){
+        alert('selected!')
     }
   }
   

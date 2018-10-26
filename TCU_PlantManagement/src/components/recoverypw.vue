@@ -1,4 +1,5 @@
 <template>
+    <body>
     <div class="wrapper-page">
         <div class="panel panel-color panel-primary panel-pages">
 
@@ -8,22 +9,21 @@
             </div> 
 
             <div class="panel-body">
-                <form method="post" role="form" class="text-center"> 
-                    <div class="alert alert-info alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        输入 <b>你的邮箱</b> 将会给你发送一条验证消息
-                    </div>
-                    <div class="form-group m-b-0"> 
-                        <div class="input-group"> 
-                            <input type="email" class="form-control input-lg" placeholder="Enter Email" required="" v-model="eMail"> 
-                            <span class="input-group-btn"> <button type="submit" class="btn btn-lg btn-primary waves-effect waves-light">重置</button> </span> 
-                        </div> 
-                    </div>   
-                </form>
+                <div class="alert alert-info alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    输入 <b>你的邮箱</b> 将会给你发送一条验证消息
+                </div>
+                <div class="form-group m-b-0"> 
+                    <div class="input-group"> 
+                        <input type="email" class="form-control input-lg" placeholder="Enter Email" required="" v-model="eMail"> 
+                        <span class="input-group-btn"> <button id="sa-success" class="btn btn-lg btn-primary waves-effect waves-light" @click="code()">验证</button> </span> 
+                    </div> 
+                </div>   
             </div>   
                 
         </div>
     </div>
+    </body>
 </template>
 
 <script>
@@ -31,14 +31,43 @@ export default {
   name: "recoverypw",
   data() {
     return {
-      eMail: ""
+      eMail: "",
+      condition: "la"
     };
   },
   mounted() {
     //xxx
   },
   methods: {
-    //xxx
+    code() {
+      var num = "";
+      for (var i = 0; i < 6; i++) {
+        num += Math.floor(Math.random() * 10);
+      }
+      var that = this;
+      this.axios({
+        method: "post",
+        url: `/api/mail?judge=0&mail_address=${this.eMail}&code=${num}`
+      })
+        .then(res => {
+          that.condition = JSON.stringify(res.data.success);
+          if (that.condition.indexOf("true") != -1) {
+            //alert('验证成功');
+            $("#sa-success").click(function() {
+              swal(
+                "验证成功!",
+                "",
+                "success"
+              );
+            });
+            //that.$router.push('/')
+            
+          } else {
+            alert("验证失败");
+          }
+        })
+        .catch(error => console.log(error));
+    }
   }
 };
 </script>
