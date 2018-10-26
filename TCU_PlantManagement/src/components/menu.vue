@@ -115,7 +115,7 @@
             <!-- Navigation Menu-->
             <ul class="navigation-menu">
               <li class="active">
-                <a href="index.html"><i class="md md-home"></i> <span> 首页 </span> </a>
+                <a href="#/menu"><i class="md md-home"></i> <span> 首页 </span> </a>
               </li>
 
 

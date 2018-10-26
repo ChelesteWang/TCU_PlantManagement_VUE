@@ -16,7 +16,7 @@
                 <div class="form-group m-b-0"> 
                     <div class="input-group"> 
                         <input type="email" class="form-control input-lg" placeholder="Enter Email" required="" v-model="eMail"> 
-                        <span class="input-group-btn"> <button id="sa-success" class="btn btn-lg btn-primary waves-effect waves-light" @click="code()">验证</button> </span> 
+                        <span class="input-group-btn"> <button class="btn btn-lg btn-primary waves-effect waves-light" @click="code()">验证</button> </span> 
                     </div> 
                 </div>   
             </div>   
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+const s_alert = require("../utils/alert");
 export default {
   name: "recoverypw",
   data() {
@@ -52,18 +53,10 @@ export default {
         .then(res => {
           that.condition = JSON.stringify(res.data.success);
           if (that.condition.indexOf("true") != -1) {
-            //alert('验证成功');
-            $("#sa-success").click(function() {
-              swal(
-                "验证成功!",
-                "",
-                "success"
-              );
-            });
+            s_alert.Success("发送成功","正在加载……","success");
             //that.$router.push('/')
-            
           } else {
-            alert("验证失败");
+            s_alert.basic("发送失败");
           }
         })
         .catch(error => console.log(error));

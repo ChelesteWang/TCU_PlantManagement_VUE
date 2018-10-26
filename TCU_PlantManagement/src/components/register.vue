@@ -9,7 +9,7 @@
           </div> 
 
           <div class="panel-body">
-          <form class="form-horizontal m-t-20">
+          <div class="form-horizontal m-t-20">
               <div class="form-group">
                   <div class="col-xs-12">
                       <input class="form-control input-lg" type="email" required="" placeholder="邮箱" v-model="eMail">
@@ -31,7 +31,7 @@
               <div class="form-group">
                   <div class="col-xs-12">
                       <div class="checkbox checkbox-primary">
-                          <input id="checkbox-signup" type="checkbox" checked="checked">
+                          <input id="checkbox-signup" type="checkbox" v-model="check">
                           <label for="checkbox-signup">
                               接受 <a href="#">天津城建大学 校园植物信息管理系统 条例</a>
                           </label>
@@ -51,7 +51,7 @@
                       <a href="/">已经拥有账号</a>
                   </div>
               </div>
-          </form> 
+          </div> 
         </div>                                 
                 
       </div>
@@ -60,35 +60,43 @@
 </template>
 
 <script>
+const s_alert = require("../utils/alert");
 export default {
   name: "register",
   data() {
     return {
       content: "",
-      userName:'',
-      passWord:'',
-      eMail:''
+      userName: "",
+      passWord: "",
+      eMail: "",
+      check: true
     };
   },
   mounted() {
     //xxx
   },
   methods: {
-    register: function() {
-      if(this.userName==''||this.passWord==''||this.eMail==''){
-
-      }else{
-      this.axios({
-        method: "post",
-        url: `/api/users?judge=2&username=${this.userName}&password=${this.passWord}`
-      })
-      .then(res => {
-        if(JSON.stringify(res.data.affectedRows)==1){
-          alert('新用户创建成功！');
-          this.$router.push('/')   
-        }       
-      })
-        .catch(error => console.log(error));        
+    register() {
+      if (this.userName == "" || this.passWord == "" || this.eMail == "") {
+        s_alert.basic("不能有空哦");
+      } else {
+        if (this.check) {
+          this.axios({
+            method: "post",
+            url: `/api/users?judge=2&username=${this.userName}&password=${
+              this.passWord
+            }`
+          })
+            .then(res => {
+              if (JSON.stringify(res.data.affectedRows) == 1) {
+                s_alert.Success("注册成功", "正在加载……", "success");
+                this.$router.push("/");
+              }
+            })
+            .catch(error => console.log(error));
+        }else{
+            s_alert.basic("必须接受 天津城建大学 校园植物信息管理系统 条例");
+        }
       }
     }
   }

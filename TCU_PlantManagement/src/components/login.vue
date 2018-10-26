@@ -1,8 +1,5 @@
 <template>
   <div>
-    <!-- <p>用户名：<input type="text" v-model="userName"></p>
-    <p>密  码：<input type="text" v-model="passWord"></p>
-    <button @click="login()">登录</button> -->
      <div class="wrapper-page">
         <div class="panel panel-color panel-primary panel-pages">
             <div class="panel-heading bg-img">
@@ -12,7 +9,7 @@
                 <h3 class="text-center text-white" style="font-size:30px;">校园植物信息管理系统</h3> 
             </div>
 
-            <form class="panel-body" onsubmit=''>
+            <div class="panel-body" >
                 <div class="form-horizontal m-t-20">
 
                     <div class="form-group">
@@ -42,6 +39,9 @@
                     <div class="form-group text-center m-t-40">
                         <div class="col-xs-12">
                             <button class="btn btn-primary btn-lg w-lg waves-effect waves-light" @click="login()">登录</button>
+                            <!-- <button @click="setcookie">cookietest</button>
+                            <button @click="clearcookie">clearcookie</button>
+                            <button @click="getcookie">getcookie</button> -->
                         </div>
                     </div>
 
@@ -54,81 +54,83 @@
                         </div>
                     </div>
                 </div>
-            </form>
-            <!-- <h3>{{check}}</h3> -->
+            </div>
+            <!-- <h3>{{username}},{{password}}</h3> -->
         </div>
     </div>
-    <!-- <remote-js src="./assets/js/modernizr.min.js"></remote-js>
-    <remote-js src="./assets/js/jquery.min.js"></remote-js>
-    <remote-js src="./assets/js/bootstrap.min.js"></remote-js>
-    <remote-js src="./assets/js/detect.js"></remote-js>
-    <remote-js src="./assets/js/fastclick.js"></remote-js>
-    <remote-js src="./assets/js/jquery.slimscroll.js"></remote-js>
-    <remote-js src="./assets/js/jquery.blockUI.js"></remote-js>
-    <remote-js src="./assets/js/waves.js"></remote-js>
-    <remote-js src="./assets/js/wow.min.js"></remote-js>
-    <remote-js src="./assets/js/jquery.nicescroll.js"></remote-js>
-    <remote-js src="./assets/js/jquery.scrollTo.min.js"></remote-js>
-    <remote-js src="./assets/js/jquery.app.js"></remote-js>
-
-    <remote-js src="./assets/plugins/sweetalert/dist/sweetalert.min.js"></remote-js>
-    <remote-js src="./assets/pages/jquery.sweet-alert.init.js"></remote-js> -->
   </div>
 </template>
 
 <script>
-var resizefunc = [];
+//引入 utils->cookie
+const cookie = require("../utils/cookie");
+const s_alert = require("../utils/alert");
+
 export default {
   name: "logging",
   data() {
     return {
       userName: "",
       passWord: "",
+      username: "",
+      password: "",
       judge: "",
-      check:true
+      check: true
     };
   },
   mounted() {
-    //alert(this.$route.params.id);
+    cookie.getCookie(this);
   },
   beforeRouteUpdate(to, from, next) {
     alert(to.params.id);
     next();
   },
   methods: {
-    login: function() {
-      this.axios({
-        method: "post",
-        url: `/api/users?judge=0&username=${this.userName}&password=${this.passWord}`
-      })
-        .then(res => {
-          if(this.userName=='' || this.passWord==''){
-              //判断输入用户名或者密码为空
-          }else{
-            this.content = res.data;
-            //alert(JSON.stringify(res.data))
-            if (res.data.length > 0) {
-                var ses = window.sessionStorage;
-                var d = JSON.stringify(res.data);
-                ses.setItem("data", d);
-                this.$router.push("/menu");
-            } else {
-                alert("账号或者密码不正确！");
-            }
-          }
+    login() {
+      if (this.userName == "" || this.passWord == "") {
+          s_alert.basic("用户名或密码为空");
+      } else {
+        this.axios({
+          method: "post",
+          url: `/api/users?judge=0&username=${this.userName}&password=${
+            this.passWord
+          }`
         })
-        .catch(error => console.log(error));
+          .then(res => {
+            this.content = res.data;
+            if (res.data.length > 0) {
+                if(this.check){
+                    var ses = window.sessionStorage;
+                    var d = JSON.stringify(res.data);
+                    ses.setItem("data", d);
+                    cookie.setCookie(this.userName, this.passWord, 7);            
+                    s_alert.Success("登录成功","正在加载……","success");
+                    this.$router.push("/menu");
+                }else{
+                    s_alert.Success("登录成功","正在加载……","success");
+                    this.$router.push("/menu");
+                }
+            } else {
+                s_alert.Timer("登录失败","用户名或密码有误");
+            }
+          })
+          .catch(error => console.log(error));
+      }
     },
-    register:function(){
-        //this.$router.push('/register');
+    select() {
+      alert("selected!");
     },
-    select(){
-        alert('selected!')
+    setcookie() {
+      cookie.setCookie("name", "yexuan", 7);
+    },
+    clearcookie() {
+      cookie.clearCookie();
+    },
+    getcookie() {
+     cookie.getCookie(this);
     }
   }
-  
 };
-
 </script>
 
 <style scoped>

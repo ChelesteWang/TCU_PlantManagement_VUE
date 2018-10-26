@@ -34,30 +34,24 @@ import "./assets/css/components.css";
 import "./assets/css/pages.css";
 import "./assets/css/menu.css";
 import "./assets/css/responsive.css";
-
 import "../static/plugins/sweetalert/dist/sweetalert.css";
 
 export default {
   name: "App",
+  //页面加载调用获取cookie值
+  mounted() {
+      //this.getCookie();
+  },
   methods: {
     show: function() {
       alert("测试APP.VUE...");
     },
     router(uid) {
       this.$router.push({ path: `/login/${uid}` });
-    } 
+    }
   },
   components: {
-    "remote-js": {
-      render(createElement) {
-        return createElement("script", {
-          attrs: { type: "text/javascript", src: this.src }
-        });
-      },
-      props: {
-        src: { type: String, required: true }
-      }
-    }
+
   }
 };
 </script>
