@@ -7,6 +7,7 @@ import recoverypw from '@/components/recoverypw'
 import welcome from '@/components/welcome'
 import ceshi from '@/components/ceshi'
 import menu from '@/components/menu'
+import index from '@/components/index'
 
 Vue.use(Router)
 
@@ -53,7 +54,17 @@ export default new Router({
     {
       path: '/menu',
       name: 'menu',
-      component: menu
+      component: menu,
+      children:[
+        {
+          path:'index',
+          component:index
+        },
+        {
+          path:'init',
+          component:init
+        }
+      ]
     }
   ]
 })

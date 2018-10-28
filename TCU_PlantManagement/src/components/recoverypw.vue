@@ -15,9 +15,10 @@
                 </div>
                 <div class="form-group m-b-0"> 
                     <div class="input-group"> 
-                        <input type="email" class="form-control input-lg" placeholder="Enter Email" required="" v-model="eMail"> 
-                        <span class="input-group-btn"> <button class="btn btn-lg btn-primary waves-effect waves-light" @click="code()">验证</button> </span> 
+                        <input type="email" class="form-control input-lg" placeholder="输入注册时的邮箱" required="" v-model="eMail"> 
+                        <span class="input-group-btn"> <button class="btn btn-lg btn-primary waves-effect waves-light" @click="sendcode()">验证</button> </span> 
                     </div> 
+                    <input class="form-control input-lg" style="margin-top:20px;" placeholder="请输入验证码" v-if="sendCodeComplete && judge!=code" v-model="judge" @input="judgeCode"> 
                 </div>   
             </div>   
                 
@@ -33,19 +34,25 @@ export default {
   data() {
     return {
       eMail: "",
-      condition: "la"
+      sendCodeComplete:false,
+      condition: "",
+      code:'',
+      judge:''
     };
   },
   mounted() {
     //xxx
   },
   methods: {
-    code() {
+    sendcode() {
+      if(this.eMail){
       var num = "";
       for (var i = 0; i < 6; i++) {
         num += Math.floor(Math.random() * 10);
       }
+      this.code=num;
       var that = this;
+      s_alert.basic("发送中……");
       this.axios({
         method: "post",
         url: `/api/mail?judge=0&mail_address=${this.eMail}&code=${num}`
@@ -54,12 +61,21 @@ export default {
           that.condition = JSON.stringify(res.data.success);
           if (that.condition.indexOf("true") != -1) {
             s_alert.Success("发送成功","正在加载……","success");
+            that.sendCodeComplete=true;
             //that.$router.push('/')
           } else {
             s_alert.basic("发送失败");
           }
-        })
-        .catch(error => console.log(error));
+        }).catch(error => console.log(error));
+      }else{
+        s_alert.basic("不能输入空哦");
+      }
+    },
+    judgeCode(event){
+      var that=this;
+      if(that.judge.indexOf(that.code)!=-1){
+        s_alert.Success("验证成功","正在加载……","success");
+      }
     }
   }
 };

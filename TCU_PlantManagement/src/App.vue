@@ -19,8 +19,9 @@
 
     <h5>引入外部css或者文件内css</h5>
     <div class="cs"></div>
-    <hr> -->
+    <hr>
     
+    <router-link to="profile">简介</router-link> -->
     <router-view/>
   </div>
 </template>
@@ -38,6 +39,11 @@ import "../static/plugins/sweetalert/dist/sweetalert.css";
 
 export default {
   name: "App",
+  data() {
+    return {
+      name:'yexuan'
+    };
+  },
   //页面加载调用获取cookie值
   mounted() {
       //this.getCookie();
@@ -52,7 +58,10 @@ export default {
   },
   components: {
 
-  }
+  },
+  // beforeRouteUpdate(to, from, next) {
+  //     next();
+  // }
 };
 </script>
 
