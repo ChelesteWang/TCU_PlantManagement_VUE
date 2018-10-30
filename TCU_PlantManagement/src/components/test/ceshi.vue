@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import app from '../App.vue'
+import app from '../../App.vue'
 export default {
     data(){
         return {

@@ -29,54 +29,67 @@
 
 <script>
 const s_alert = require("../utils/alert");
+import app from "../App.vue";
+
 export default {
   name: "recoverypw",
   data() {
     return {
       eMail: "",
-      sendCodeComplete:false,
+      sendCodeComplete: false,
       condition: "",
-      code:'',
-      judge:''
+      code: "",
+      judge: ""
     };
   },
   mounted() {
     //xxx
   },
   methods: {
+    //发送验证信息
     sendcode() {
-      if(this.eMail){
-      var num = "";
-      for (var i = 0; i < 6; i++) {
-        num += Math.floor(Math.random() * 10);
-      }
-      this.code=num;
-      var that = this;
-      s_alert.basic("发送中……");
-      this.axios({
-        method: "post",
-        url: `/api/mail?judge=0&mail_address=${this.eMail}&code=${num}`
-      })
-        .then(res => {
-          that.condition = JSON.stringify(res.data.success);
-          if (that.condition.indexOf("true") != -1) {
-            s_alert.Success("发送成功","正在加载……","success");
-            that.sendCodeComplete=true;
-            //that.$router.push('/')
-          } else {
-            s_alert.basic("发送失败");
-          }
-        }).catch(error => console.log(error));
-      }else{
+      if (this.eMail) {
+        var num = "";
+        for (var i = 0; i < 6; i++) {
+          num += Math.floor(Math.random() * 10);
+        }
+        this.code = num;
+        var that = this;
+        s_alert.basic("发送中……");
+        this.axios({
+          method: "post",
+          url: `${app.data().globleUrl}/mail?judge=0&mail_address=${
+            this.eMail
+          }&code=${num}`
+        })
+          .then(res => {
+            that.condition = JSON.stringify(res.data.success);
+            if (that.condition.indexOf("true") != -1) {
+              s_alert.Success("发送成功", "正在加载……", "success");
+              that.sendCodeComplete = true;
+              //that.$router.push('/')
+            } else {
+              s_alert.basic("发送失败");
+            }
+          })
+          .catch(error => console.log(error));
+      } else {
         s_alert.basic("不能输入空哦");
       }
     },
-    judgeCode(event){
-      var that=this;
-      if(that.judge.indexOf(that.code)!=-1){
-        s_alert.Success("验证成功","正在加载……","success");
+    //验证验证输入匹配？
+    judgeCode(event) {
+      var that = this;
+      if (that.judge.indexOf(that.code) != -1) {
+        s_alert.Success("验证成功", "正在加载……", "success");
+        this.toResetPwd();
       }
+    },
+    //跳转重置密码
+    toResetPwd(){
+      this.$router.push({ path: `/resetpwd/${this.eMail}` });
     }
+
   }
 };
 </script>

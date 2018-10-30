@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import init from '@/components/init'
 import login from '@/components/login'
 import register from '@/components/register'
 import recoverypw from '@/components/recoverypw'
-import welcome from '@/components/welcome'
-import ceshi from '@/components/ceshi'
 import menu from '@/components/menu'
-import index from '@/components/index'
+import index from '@/components/mange/index'
+import resetpwd from '@/components/resetPwd'
+
+
+import init from '@/components/test/init'
+import welcome from '@/components/test/welcome'
+import ceshi from '@/components/test/ceshi'
 
 Vue.use(Router)
 
@@ -37,9 +40,14 @@ export default new Router({
       component: register
     },
     {
-      path: '/recoverypw',
+      path: '/recoverypw/',
       name: 'recoverypw',
       component: recoverypw
+    },
+    {
+      path:'/resetpwd/:id',
+      name:'resetpwd',
+      component:resetpwd
     },
     {
       path: '/welcome',

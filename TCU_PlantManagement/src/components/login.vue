@@ -50,7 +50,7 @@
                             <a href="/#/recoverypw"><i class="fa fa-lock m-r-5"></i> 忘记密码？</a>
                         </div>
                         <div class="col-sm-5 text-right">
-                            <a @click="register()" href="/#/register">创建新用户</a>
+                            <a href="/#/register">创建新用户</a>
                         </div>
                     </div>
                 </div>
@@ -65,6 +65,7 @@
 //引入 utils->cookie
 const cookie = require("../utils/cookie");
 const s_alert = require("../utils/alert");
+import app from '../App.vue'
 
 export default {
   name: "logging",
@@ -81,8 +82,8 @@ export default {
   mounted() {
     cookie.getCookie(this);
   },
-  beforeRouteUpdate(to, from, next) {
-    alert(to.params.id);
+   beforeRouteEnter(to, from, next) {
+    //alert(to.params.id);
     next();
   },
   methods: {
@@ -92,7 +93,7 @@ export default {
       } else {
         this.axios({
           method: "post",
-          url: `/api/users?judge=0&username=${this.userName}&password=${
+          url: `${app.data().globleUrl}/users?judge=0&username=${this.userName}&password=${
             this.passWord
           }`
         })

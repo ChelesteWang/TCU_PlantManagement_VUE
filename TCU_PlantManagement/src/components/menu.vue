@@ -90,7 +90,7 @@
                     <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> 简介</a></li>
                     <li><a href="javascript:void(0)"><i class="md md-settings"></i> 设置</a></li>
                     <li><a href="javascript:void(0)"><i class="md md-lock"></i> 锁屏</a></li>
-                    <li><a href="javascript:void(0)"><i class="md md-settings-power"></i> 注销</a></li>
+                    <li @click="logout()"><a><i class="md md-settings-power"></i> 注销</a></li>
                   </ul>
                 </li>
               </ul>
@@ -122,16 +122,10 @@
                 <li class="has-submenu">
                   <a href="#"><i class="md md-palette "></i><span> 植物管理 </span> </a>
                   <ul class="submenu">
-                    <li><a href="typography.html">Typography</a></li>
-                    <li><a href="buttons.html">Buttons</a></li>
-                    <li><a href="panels.html">Panels</a></li>
-                    <li><a href="checkbox-radio.html">Checkboxs-Radios</a></li>
-                    <li><a href="tabs-accordions.html">Tabs &amp; Accordions</a></li>
-                    <li><a href="modals.html">Modals</a></li>
-                    <li><a href="bootstrap-ui.html">BS Elements</a></li>
-                    <li><a href="progressbars.html">Progress Bars</a></li>
-                    <li><a href="notification.html">Notification</a></li>
-                    <li><a href="sweet-alert.html">Sweet-Alert</a></li>
+                    <li><a href="javascript:void(0);">科类管理</a></li>
+                    <li><a href="javascript:void(0);">属类管理</a></li>
+                    <li><a href="javascript:void(0);">种类管理</a></li>
+                    <li><a href="javascript:void(0);">Tabs &amp; Accordions</a></li>
                   </ul>
                 </li>
 
@@ -289,6 +283,7 @@
 </template>
 
 <script>
+const s_alert = require("../utils/alert");
 export default {
   name:'menu',
   data(){
@@ -297,9 +292,33 @@ export default {
     }
   },
   mounted() {
-    //默认加载 index
-    this.$router.push('/menu/index')
+    if(window.sessionStorage.data==null){
+        s_alert.basic("登录会话过期，请重新登录！");
+        this.$router.push('/')
+      }else{
+        //默认加载 index
+        this.$router.push('/menu/index')
+      }
   },
+  beforeRouteUpdate(to, from, next){
+      if(window.sessionStorage.data){
+          next();
+      }else{
+          s_alert.basic("登录会话过期，请重新登录！");
+          setTimeout(function(){
+            next('/')
+          },2000)
+      }
+  },
+  methods:{
+    logout (){
+          window.sessionStorage.removeItem('data');
+          s_alert.basic("注销成功！");
+          setTimeout(function(){
+            window.location.reload();
+          },2000)
+      }
+  }
 };
 </script>
 

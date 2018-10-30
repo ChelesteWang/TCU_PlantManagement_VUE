@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Settings <span class="m-l-5"><i class="fa fa-cog"></i></span></button>
+                        <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> 设置 <span class="m-l-5"><i class="fa fa-cog"></i></span></button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Action</a></li>
                             <li><a href="#">Another action</a></li>
@@ -15,7 +15,7 @@
                             <li><a href="#">Separated link</a></li>
                         </ul>
                     </div>
-                    <h4 class="page-title">Welcome !</h4>
+                    <h4 class="page-title">欢迎 !</h4>
                 </div>
             </div>
 
@@ -26,12 +26,12 @@
                     <div class="mini-stat clearfix bx-shadow bg-info">
                         <span class="mini-stat-icon"><i class="ion-ios7-location"></i></span>
                         <div class="mini-stat-info text-right">
-                            <span class="counter">15852</span>
-                            Total Sales
+                            <span class="counter">521</span>
+                            总共植物数量
                         </div>
                         <div class="tiles-progress">
                             <div class="m-t-20">
-                                <h5 class="text-uppercase text-white m-0">Last week's Sales <span class="pull-right">235</span></h5>
+                                <h5 class="text-uppercase text-white m-0"> 上周新增植株 <span class="pull-right">23</span></h5>
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="tiles-progress">
                             <div class="m-t-20">
-                                <h5 class="text-uppercase text-white m-0">Last month's Visitors <span class="pull-right">1026</span></h5>
+                                <h5 class="text-uppercase text-white m-0"> 最近访问量 <span class="pull-right">1026</span></h5>
                             </div>
                         </div>
                     </div>

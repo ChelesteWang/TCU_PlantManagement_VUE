@@ -41,6 +41,7 @@ export default {
   name: "App",
   data() {
     return {
+      globleUrl:'http://localhost:11111',
       name:'yexuan'
     };
   },
