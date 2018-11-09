@@ -16,7 +16,7 @@
               <ul class="nav navbar-nav navbar-right pull-right">
                 <li>
                   <form role="search" class="navbar-left app-search pull-left hidden-xs">
-                    <input type="text" placeholder="Search..." class="form-control">
+                    <input type="text" placeholder="搜索..." class="form-control">
                     <a href=""><i class="fa fa-search"></i></a>
                   </form>
                 </li>
@@ -130,82 +130,87 @@
                 </li>
 
                 <li class="has-submenu">
-                  <a href="#"><i class="md md-invert-colors-on"></i> <span> 养护管理 </span> </a>
+                  <a href="#"><i class="md md-description "></i><span> 档案管理 </span> </a>
                   <ul class="submenu">
-                    <li><a href="grid.html">Grid</a></li>
-                    <li><a href="portlets.html">Portlets</a></li>
-                    <li><a href="widgets.html">Widgets</a></li>
-                    <li><a href="nestable-list.html">Nesteble</a></li>
-                    <li><a href="ui-sliders.html">Sliders </a></li>
-                    <li><a href="gallery.html">Gallery </a></li>
-                    <li><a href="pricing.html">Pricing Table </a></li>
-                    <li><a href="calendar.html">Calendar </a></li>
+                    <li><a href="javascript:void(0);">档案建立</a></li>
+                    <li><a href="javascript:void(0);">档案维护</a></li>
+                    <li><a href="javascript:void(0);">档案查询</a></li>
+                    <li><a href="javascript:void(0);">Tabs &amp; Accordions</a></li>
                   </ul>
                 </li>
 
                 <li class="has-submenu">
-                  <a href="#"><i class="md md-redeem"></i> <span> 校园风景 </span> </a>
+                  <a href="#"><i class="md md-invert-colors-on"></i> <span> 养护管理 </span> </a>
+                  <ul class="submenu">
+                    <li><a href="grid.html">灌水与排水</a></li>
+                    <li><a href="portlets.html">施肥</a></li>
+                    <li><a href="widgets.html">苗木整形与修剪</a></li>
+                    <li><a href="nestable-list.html">防治病虫害</a></li>
+                    <li><a href="ui-sliders.html">Sliders </a></li>
+                  </ul>
+                </li>
+                <li class="has-submenu">
+                  <a href="#"><i class="md md-turned-in-not"></i> <span> 植物分类 </span> </a>
                   <ul class="submenu">
                     <li class="has-submenu">
-                      <a href="#">Icons</a>
+                      <a href="#">茎的形态</a>
                       <ul class="submenu">
-                        <li><a href="material-icon.html">Material Design</a></li>
-                        <li><a href="ion-icons.html">Ion Icons</a></li>
+                        <li><a href="material-icon.html">乔木</a></li>
+                        <li><a href="ion-icons.html">灌木</a></li>
+                        <li><a href="font-awesome.html">亚灌木</a></li>
+                        <li><a href="font-awesome.html">草本植物</a></li>
+                        <li><a href="font-awesome.html">藤本植物</a></li>
+                      </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                      <a href="#">生态习性</a>
+                      <ul class="submenu">
+                        <li><a href="gmap.html">陆生植物</a></li>
+                        <li><a href="vector-map.html">水生植物</a></li>
+                        <li><a href="font-awesome.html">附生植物</a></li>
+                        <li><a href="font-awesome.html">寄生植物</a></li>
+                        <li><a href="font-awesome.html">腐生植物</a></li>
+                      </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                      <a href="#">生活周期</a>
+                      <ul class="submenu">
+                        <li><a href="inbox.html">一年生植物</a></li>
+                        <li><a href="email-compose.html">二年生植物</a></li>
+                        <li><a href="email-read.html">多年生植物</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="has-submenu">
+                  <a href="#"><i class="md md-aspect-ratio"></i> <span> 校园风景 </span> </a>
+                  <ul class="submenu">
+                    <li class="has-submenu">
+                      <a href="#">中心湖附近</a>
+                      <ul class="submenu">
+                        <li><a href="material-icon.html">中心湖</a></li>
+                        <li><a href="ion-icons.html">鸭子湖</a></li>
                         <li><a href="font-awesome.html">Font awesome</a></li>
                       </ul>
                     </li>
 
                     <li class="has-submenu">
-                      <a href="#">Forms</a>
+                      <a href="#">体育馆附近</a>
                       <ul class="submenu">
-                        <li><a href="form-elements.html">General Elements</a></li>
-                        <li><a href="form-validation.html">Form Validation</a></li>
-                        <li><a href="form-advanced.html">Advanced Form</a></li>
-                        <li><a href="form-wizard.html">Form Wizard</a></li>
-                        <li><a href="form-editor.html">WYSIWYG Editor</a></li>
-                        <li><a href="code-editor.html">Code Editors</a></li>
-                        <li><a href="form-uploads.html">Multiple File Upload</a></li>
-                        <li><a href="form-xeditable.html">X-editable</a></li>
+                        <li><a href="gmap.html"> 西门</a></li>
+                        <li><a href="vector-map.html"> 体育馆</a></li>
                       </ul>
                     </li>
 
                     <li class="has-submenu">
-                      <a href="#">Tables</a>
+                      <a href="#">滨湖道附近</a>
                       <ul class="submenu">
-                        <li><a href="tables.html">Basic Tables</a></li>
-                        <li><a href="table-datatable.html">Data Table</a></li>
-                        <li><a href="tables-editable.html">Editable Table</a></li>
-                        <li><a href="responsive-table.html">Responsive Table</a></li>
-                      </ul>
-                    </li>
-
-                    <li class="has-submenu">
-                      <a href="#">Charts</a>
-                      <ul class="submenu">
-                        <li><a href="morris-chart.html">Morris Chart</a></li>
-                        <li><a href="chartjs.html">Chartjs</a></li>
-                        <li><a href="flot-chart.html">Flot Chart</a></li>
-                        <li><a href="peity-chart.html">Peity Charts</a></li>
-                        <li><a href="charts-sparkline.html">Sparkline Charts</a></li>
-                        <li><a href="chart-radial.html">Radial charts</a></li>
-                        <li><a href="other-chart.html">Other Chart</a></li>
-                      </ul>
-                    </li>
-
-                    <li class="has-submenu">
-                      <a href="#">Maps</a>
-                      <ul class="submenu">
-                        <li><a href="gmap.html"> Google Map</a></li>
-                        <li><a href="vector-map.html"> Vector Map</a></li>
-                      </ul>
-                    </li>
-
-                    <li class="has-submenu">
-                      <a href="#">Mail</a>
-                      <ul class="submenu">
-                        <li><a href="inbox.html">Inbox</a></li>
-                        <li><a href="email-compose.html">Compose Mail</a></li>
-                        <li><a href="email-read.html">View Mail</a></li>
+                        <li><a href="inbox.html">滨湖道</a></li>
+                        <li><a href="email-compose.html">二餐门口</a></li>
+                        <li><a href="email-read.html">小树林</a></li>
                       </ul>
                     </li>
                   </ul>
@@ -216,25 +221,18 @@
                   <ul class="submenu megamenu">
                     <li>
                       <ul>
-                        <li><a href="profile.html">Profile</a></li>
-                        <li><a href="timeline.html">Timeline</a></li>
-                        <li><a href="invoice.html">Invoice</a></li>
-                        <li><a href="email-template.html">Email template</a></li>
-                        <li><a href="contact.html">Contact-list</a></li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Register</a></li>
-                        <li><a href="recoverpw.html">Recover Password</a></li>
+                        <li><a href="profile.html">系统简介</a></li>
+                        <li><a href="timeline.html">部门介绍</a></li>
+                        <li><a href="invoice.html">功能介绍</a></li>
+                        <li><a href="email-template.html">反馈信息</a></li>
                       </ul>
                     </li>
                     <li>
                       <ul>
-                        <li><a href="lock-screen.html">Lock Screen</a></li>
-                        <li><a href="blank.html">Blank Page</a></li>
-                        <li><a href="maintenance.html">Maintenance</a></li>
-                        <li><a href="coming-soon.html">Coming-soon</a></li>
-                        <li><a href="404.html">404 Error</a></li>
-                        <li><a href="404_alt.html">404 alt</a></li>
-                        <li><a href="500.html">500 Error</a></li>
+                        <li><a href="http://www.tcu.edu.cn/">学校主页</a></li>
+                        <li><a href="http://cwc.tcu.edu.cn/">财务处</a></li>
+                        <li><a href="http://jwc.tcu.edu.cn/">教务处</a></li>
+                        <li><a href="http://kyc.tcu.edu.cn/">科技处</a></li>
                       </ul>
                     </li>
                   </ul>
@@ -285,39 +283,40 @@
 <script>
 const s_alert = require("../utils/alert");
 export default {
-  name:'menu',
-  data(){
-    return{
-      icon_src:'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJLvDauOxz0icWPgpFju1mFwqZ3Rf0X1gicanO0syyx3Zw0YyRPk2BPaIcjEzicBeFvV3ewpaWsI9jxw/132',
-    }
+  name: "menus",
+  data() {
+    return {
+      icon_src:
+      "http://ww3.sinaimg.cn/thumb300/005NL6H7gw1ew1tp2et08j30cj0dl0tq.jpg"
+    };
   },
   mounted() {
-    if(window.sessionStorage.data==null){
-        s_alert.basic("登录会话过期，请重新登录！");
-        this.$router.push('/')
-      }else{
-        //默认加载 index
-        this.$router.push('/menu/index')
-      }
+    if (window.sessionStorage.data == null) {
+      s_alert.basic("登录会话过期，请重新登录！");
+      this.$router.push("/");
+    } else {
+      //默认加载 index
+      this.$router.push("/menu/index");
+    }
   },
-  beforeRouteUpdate(to, from, next){
-      if(window.sessionStorage.data){
-          next();
-      }else{
-          s_alert.basic("登录会话过期，请重新登录！");
-          setTimeout(function(){
-            next('/')
-          },2000)
-      }
+  beforeRouteUpdate(to, from, next) {
+    if (window.sessionStorage.data) {
+      next();
+    } else {
+      s_alert.basic("登录会话过期，请重新登录！");
+      setTimeout(function() {
+        next("/");
+      }, 2000);
+    }
   },
-  methods:{
-    logout (){
-          window.sessionStorage.removeItem('data');
-          s_alert.basic("注销成功！");
-          setTimeout(function(){
-            window.location.reload();
-          },2000)
-      }
+  methods: {
+    logout() {
+      window.sessionStorage.removeItem("data");
+      s_alert.basic("注销成功！");
+      setTimeout(function() {
+        window.location.reload();
+      }, 2000);
+    }
   }
 };
 </script>
@@ -327,10 +326,10 @@ export default {
   position: fixed;
   bottom: 0;
 }
-.content{
+.content {
   margin-top: 150px;
 }
-.router{
+.router {
   color: white;
   font-weight: normal;
 }

@@ -1,14 +1,6 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png">
-    <hr>
-
-    <h5>按钮+bootstrap</h5>
-    <button class="btn btn-primary" @click="show">确定</button>
-    <button class="btn btn-success">使用</button>
-    <button class="btn btn-danger">注意</button>
-    <hr>
-
     <h5>几种router的传递方式</h5>
     <router-link to="/init">Home</router-link>
     <router-link to="/login/1">login</router-link>
@@ -16,11 +8,6 @@
     <router-link :to="{ name: 'login', params: { id: 'to_name' }}">to_name</router-link>
     <router-link :to="{ path: '/login/path' }">path</router-link>
     <hr>
-
-    <h5>引入外部css或者文件内css</h5>
-    <div class="cs"></div>
-    <hr>
-    
     <router-link to="profile">简介</router-link> -->
     <router-view/>
   </div>
@@ -41,13 +28,13 @@ export default {
   name: "App",
   data() {
     return {
-      globleUrl:'http://localhost:11111',
-      name:'yexuan'
+      globleUrl: "http://localhost:11111",
+      name: "yexuan"
     };
   },
   //页面加载调用获取cookie值
   mounted() {
-      //this.getCookie();
+    //this.getCookie();
   },
   methods: {
     show: function() {
@@ -58,8 +45,24 @@ export default {
     }
   },
   components: {
-
-  },
+    remote: {
+      render: function(createElement) {
+        var self = this;
+        return createElement("script", {
+          attrs: {
+            type: "text/javascript",
+            src: this.src
+          }
+        });
+      },
+      props: {
+        src: {
+          type: String,
+          required: true
+        }
+      }
+    }
+  }
   // beforeRouteUpdate(to, from, next) {
   //     next();
   // }

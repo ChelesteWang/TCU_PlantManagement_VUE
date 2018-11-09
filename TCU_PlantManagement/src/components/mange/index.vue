@@ -19,7 +19,6 @@
                 </div>
             </div>
 
-
             <!-- Start Widget -->
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-lg-3">
@@ -38,14 +37,14 @@
                 </div>
                 <div class="col-md-6 col-sm-6 col-lg-3">
                     <div class="mini-stat clearfix bg-purple bx-shadow">
-                        <span class="mini-stat-icon"><i class="ion-ios7-cart"></i></span>
+                        <span class="mini-stat-icon"><i class="md md-aspect-ratio"></i></span>
                         <div class="mini-stat-info text-right">
                             <span class="counter">956</span>
-                            New Orders
+                            总共校园风景
                         </div>
                         <div class="tiles-progress">
                             <div class="m-t-20">
-                                <h5 class="text-uppercase text-white m-0">Last week's Orders <span class="pull-right">59</span></h5>
+                                <h5 class="text-uppercase text-white m-0">上周新增风景<span class="pull-right">59</span></h5>
                             </div>
                         </div>
                     </div>
@@ -53,14 +52,14 @@
 
                 <div class="col-md-6 col-sm-6 col-lg-3">
                     <div class="mini-stat clearfix bg-primary bx-shadow">
-                        <span class="mini-stat-icon"><i class="ion-android-contacts"></i></span>
+                        <span class="mini-stat-icon"><i class="md md-invert-colors-on"></i></span>
                         <div class="mini-stat-info text-right">
                             <span class="counter">5210</span>
-                            New Users
+                            植物养护次数
                         </div>
                         <div class="tiles-progress">
                             <div class="m-t-20">
-                                <h5 class="text-uppercase text-white m-0">Last month's Users <span class="pull-right">136</span></h5>
+                                <h5 class="text-uppercase text-white m-0">上周养护次数 <span class="pull-right">136</span></h5>
                             </div>
                         </div>
                     </div>
@@ -71,7 +70,7 @@
                         <span class="mini-stat-icon"><i class="ion-eye"></i></span>
                         <div class="mini-stat-info text-right">
                             <span class="counter">20544</span>
-                            Unique Visitors
+                            总共系统访问量
                         </div>
                         <div class="tiles-progress">
                             <div class="m-t-20">
@@ -84,13 +83,12 @@
             </div>
             <!-- End row-->
 
-
             <div class="row">
                 <div class="col-lg-8">
                     <div class="portlet"><!-- /portlet heading -->
                         <div class="portlet-heading">
                             <h3 class="portlet-title text-dark text-uppercase">
-                                Website Stats
+                                校园植物位置图
                             </h3>
                             <div class="portlet-widgets">
                                 <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
@@ -105,7 +103,13 @@
                             <div class="portlet-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div id="website-stats" style="position: relative;height: 320px"></div>
+                                        <div id="website-stats" style="position: relative;height: 320px">
+                                            <!-- 地图 -->
+                                            <div id="app">       
+                                                <div id="allmap" ref="allmap"></div>
+                                                <router-view></router-view>
+                                            </div>
+                                        </div>
                                         <div class="row text-center m-t-30">
                                             <div class="col-sm-4">
                                                 <h4 class="counter">86,956</h4>
@@ -131,7 +135,7 @@
                     <div class="portlet"><!-- /portlet heading -->
                         <div class="portlet-heading">
                             <h3 class="portlet-title text-dark text-uppercase">
-                                Selling Stats
+                                校园植物位置图
                             </h3>
                             <div class="portlet-widgets">
                                 <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
@@ -148,6 +152,11 @@
                                     <div class="col-md-12">
                                         <div id="pie-chart">
                                             <div id="pie-chart-container" class="flot-chart" style="height: 320px">
+                                                <!-- 地图 -->
+                                                <div  id="app">       
+                                                <div id="allmap" ref="allmap1"></div>
+                                                <router-view></router-view>
+                                            </div>
                                             </div>
                                         </div>
 
@@ -175,10 +184,52 @@
 
 <script>
 export default {
-    
-}
+  name: "index",
+  data() {
+    return {
+        
+    };
+  },
+  mounted() {
+      this.map();
+  },
+  methods: {
+    map() {
+      let map = new BMap.Map(this.$refs.allmap); // 创建Map实例
+      map.centerAndZoom(new BMap.Point(116.404, 39.915), 11); // 初始化地图,设置中心点坐标和地图级别
+      map.addControl(
+        new BMap.MapTypeControl({
+          //添加地图类型控件
+          mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP]
+        })
+      );
+      map.setCurrentCity("天津"); // 设置地图显示的城市 此项是必须设置的
+      map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+      
+      //主界面右侧小地图   
+      let map1 = new BMap.Map(this.$refs.allmap1); // 创建Map实例
+      map1.centerAndZoom(new BMap.Point(117.086, 39.093), 11); // 初始化地图,设置中心点坐标和地图级别
+      map1.addControl(
+        new BMap.MapTypeControl({
+          //添加地图类型控件
+          mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP]
+        })
+      );
+      map1.setCurrentCity("天津"); // 设置地图显示的城市 此项是必须设置的
+      map1.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+    }
+  }
+};
 </script>
 
 <style scoped>
-
+#app {
+  color: #2c3e50;
+  margin-top: 0px;
+  height: 100%;
+}
+#allmap {
+  height: 100%;
+  overflow: hidden;
+}
 </style>

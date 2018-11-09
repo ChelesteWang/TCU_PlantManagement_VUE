@@ -4,13 +4,13 @@ import login from '@/components/login'
 import register from '@/components/register'
 import recoverypw from '@/components/recoverypw'
 import menu from '@/components/menu'
-import index from '@/components/mange/index'
 import resetpwd from '@/components/resetPwd'
-
-
 import init from '@/components/test/init'
 import welcome from '@/components/test/welcome'
 import ceshi from '@/components/test/ceshi'
+
+import index from '@/components/mange/index'
+import map from '@/components/mange/map'
 
 Vue.use(Router)
 
@@ -71,6 +71,10 @@ export default new Router({
         {
           path:'init',
           component:init
+        },
+        {
+          path:'map',
+          component:map
         }
       ]
     }

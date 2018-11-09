@@ -14,13 +14,13 @@
 
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control input-lg" type="text" required="" placeholder="用户名" v-model="userName">
+                            <input class="form-control input-lg" type="text" required="" placeholder="用户名" v-model="userName" v-on:keyup.enter="login()">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control input-lg" type="password" required="" placeholder="密码" v-model="passWord">
+                            <input class="form-control input-lg" type="password" required="" placeholder="密码" v-model="passWord" v-on:keyup.enter="login()">
                         </div>
                     </div>
 
@@ -93,9 +93,7 @@ export default {
       } else {
         this.axios({
           method: "post",
-          url: `${app.data().globleUrl}/users?judge=0&username=${this.userName}&password=${
-            this.passWord
-          }`
+          url: `${app.data().globleUrl}/users?judge=0&username=${this.userName}&password=${this.passWord}`
         })
           .then(res => {
             this.content = res.data;
@@ -135,4 +133,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>
