@@ -8,9 +8,13 @@ import resetpwd from '@/components/resetPwd'
 import init from '@/components/test/init'
 import welcome from '@/components/test/welcome'
 import ceshi from '@/components/test/ceshi'
-
+// manage
 import index from '@/components/mange/index'
 import map from '@/components/mange/map'
+// document
+import docCreate from '@/components/document/docCreate'
+import docSupport from '@/components/document/docSupport'
+import docList from '@/components/document/docList'
 
 Vue.use(Router)
 
@@ -68,13 +72,25 @@ export default new Router({
           path:'index',
           component:index
         },
+        // {
+        //   path:'init',
+        //   component:init
+        // },
+        // {
+        //   path:'map',
+        //   component:map
+        // },
         {
-          path:'init',
-          component:init
+          path:'doccreate',
+          component:docCreate
         },
         {
-          path:'map',
-          component:map
+          path:'docsupport',
+          component:docSupport
+        },
+        {
+          path:'doclist',
+          component:docList
         }
       ]
     }

@@ -1,18 +1,13 @@
 <template>
     <div>
-      <!-- Navigation Bar-->
+      <!-- 头部 -->
       <header id="topnav">
         <div class="topbar-main">
           <div class="container">
-
-            <!-- LOGO -->
             <div class="topbar-left">
               <a href="#/menu" class="logo"><i class="md md-terrain"></i> <span><router-link to="/menu/index" class="router">天津城建大学植物信息管理系统</router-link> </span></a>
             </div>
-            <!-- End Logo container-->
-
             <div class="menu-extras">
-
               <ul class="nav navbar-nav navbar-right pull-right">
                 <li>
                   <form role="search" class="navbar-left app-search pull-left hidden-xs">
@@ -56,7 +51,6 @@
                           </div>
                         </div>
                       </a>
-                      <!-- list item-->
                       <a href="javascript:void(0);" class="list-group-item">
                         <div class="media">
                           <div class="pull-left">
@@ -71,7 +65,6 @@
                           </div>
                         </div>
                       </a>
-                      <!-- last list item -->
                       <a href="javascript:void(0);" class="list-group-item">
                         <small>显示所有的通知</small>
                       </a>
@@ -95,7 +88,6 @@
                 </li>
               </ul>
               <div class="menu-item">
-                <!-- Mobile menu toggle-->
                 <a class="navbar-toggle">
                   <div class="lines">
                     <span></span>
@@ -103,16 +95,13 @@
                     <span></span>
                   </div>
                 </a>
-                <!-- End mobile menu toggle-->
               </div>
             </div>
           </div>
         </div>
-
         <div class="navbar-custom">
           <div class="container">
             <div id="navigation">
-              <!-- Navigation Menu-->
               <ul class="navigation-menu">
                 <li class="active">
                   <a href="#/menu"><i class="md md-home"></i> <span> 首页 </span> </a>
@@ -125,17 +114,17 @@
                     <li><a href="javascript:void(0);">科类管理</a></li>
                     <li><a href="javascript:void(0);">属类管理</a></li>
                     <li><a href="javascript:void(0);">种类管理</a></li>
-                    <li><a href="javascript:void(0);">Tabs &amp; Accordions</a></li>
+                    <li><a href="javascript:void(0);">植物列表</a></li>
                   </ul>
                 </li>
 
                 <li class="has-submenu">
                   <a href="#"><i class="md md-description "></i><span> 档案管理 </span> </a>
                   <ul class="submenu">
-                    <li><a href="javascript:void(0);">档案建立</a></li>
-                    <li><a href="javascript:void(0);">档案维护</a></li>
-                    <li><a href="javascript:void(0);">档案查询</a></li>
-                    <li><a href="javascript:void(0);">Tabs &amp; Accordions</a></li>
+                    <li><a href="#/menu/doccreate">档案建立</a></li>
+                    <li><a href="#/menu/docsupport">档案维护</a></li>
+                    <li><a href="#/menu/docSearch">档案查询</a></li>
+                    <li><a href="#/menu/doclist">档案列表</a></li>
                   </ul>
                 </li>
 
@@ -239,12 +228,10 @@
                 </li>
 
               </ul>
-              <!-- End navigation menu  -->
             </div>
           </div>
         </div>
       </header>
-      <!-- End Navigation Bar-->
 
       <!-- Content Part-->
       <div class="content">      
@@ -275,7 +262,6 @@
               </div>
           </div>
       </footer>
-      <!-- End Footer -->
     </div>
     
 </template>
@@ -287,7 +273,7 @@ export default {
   data() {
     return {
       icon_src:
-      "http://ww3.sinaimg.cn/thumb300/005NL6H7gw1ew1tp2et08j30cj0dl0tq.jpg"
+        "http://ww3.sinaimg.cn/thumb300/005NL6H7gw1ew1tp2et08j30cj0dl0tq.jpg"
     };
   },
   mounted() {
@@ -328,6 +314,7 @@ export default {
 }
 .content {
   margin-top: 150px;
+  height: 300px;
 }
 .router {
   color: white;

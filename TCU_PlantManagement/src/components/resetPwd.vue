@@ -39,7 +39,7 @@
                 
       </div>
     </div>
-  <h3>{{email}}</h3>
+  <!-- <h3>{{email}}</h3> -->
   </div>
 </template>
 

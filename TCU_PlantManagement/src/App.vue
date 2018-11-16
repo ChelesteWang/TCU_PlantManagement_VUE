@@ -23,6 +23,8 @@ import "./assets/css/pages.css";
 import "./assets/css/menu.css";
 import "./assets/css/responsive.css";
 import "../static/plugins/sweetalert/dist/sweetalert.css";
+import "../static/plugins/magnific-popup/dist/magnific-popup.css";
+import "../static/plugins/jquery-datatables-editable/datatables.css";
 
 export default {
   name: "App",
