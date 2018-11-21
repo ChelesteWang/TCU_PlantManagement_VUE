@@ -3,6 +3,7 @@
     <h2>welcome</h2>
     <h3>{{content}}</h3>
     <button @click="logout()">注销</button>
+    <button class="btn-success" @click="mockcs()">测试mockjs</button>
   </div>
 </template>
 
@@ -31,10 +32,19 @@ export default {
       }
   },
   methods:{
-      logout : function(){
+      logout(){
           window.sessionStorage.removeItem('data');
           alert('注销成功！');
           window.location.reload();
+      },
+      mockcs(){
+        this.axios.post('/news/api',{withCredentials:true})
+        .then(res=>{
+          console.log(res.data)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
       }
   }
 };

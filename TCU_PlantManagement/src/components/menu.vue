@@ -314,7 +314,7 @@ export default {
 }
 .content {
   margin-top: 150px;
-  height: 300px;
+  height: 100px;
 }
 .router {
   color: white;

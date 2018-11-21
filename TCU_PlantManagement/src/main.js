@@ -5,9 +5,11 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import mock from './mock'
 
 // 使用axios库，进行ajax调用
 Vue.use(VueAxios, axios)
+Vue.use(mock)
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {

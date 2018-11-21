@@ -5,6 +5,7 @@ import register from '@/components/register'
 import recoverypw from '@/components/recoverypw'
 import menu from '@/components/menu'
 import resetpwd from '@/components/resetPwd'
+//test
 import init from '@/components/test/init'
 import welcome from '@/components/test/welcome'
 import ceshi from '@/components/test/ceshi'

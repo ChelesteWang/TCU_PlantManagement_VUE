@@ -58,20 +58,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="gradeX" v-for="(item,index) in items" :key="item.id">
-                                    <td> 
-                                        <input class="checkbox" type="checkbox" v-model="select" :value="index" name="jc">
+                                <tr class="gradeX" v-for="(item,index) in showItems" :key="item.id">
+                                    <td align="center"> 
+                                        <input type="checkbox" v-model="select" @change="indexSelect(index)" :value="item.plantid" name="jc">
                                     </td>
-                                    <td>TCJ_2018_01_pinus</td>
-                                    <td>松树</td>
-                                    <td>常绿树</td>
-                                    <td>Pinus</td>
-                                    <td>松科</td>
-                                    <td>松属</td>
-                                    <td>松树</td>
-                                    <td>松树为雌雄同株植物，而且孢子叶成球果状排列，叶成针状，常2针、3针或5针一束。</td>
-                                    <td>适宜酸性土壤，喜光树种，耐阴性弱，具有旱生结构</td>
-                                    <td>观赏、工业、药用</td>
+                                    <td>{{item.plantid}}</td>
+                                    <td>{{item.aname}}</td>
+                                    <td>{{item.alias}}</td>
+                                    <td>{{item.lname}}</td>
+                                    <td>{{item.family}}</td>
+                                    <td>{{item.genera}}</td>
+                                    <td>{{item.specie}}</td>
+                                    <td>{{item.morphology}}</td>
+                                    <td>{{item.habit}}</td>
+                                    <td>{{item.purpose}}</td>
                                     <td class="actions">
                                         <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
                                         <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
@@ -82,21 +82,18 @@
                             </tbody>
                         </table>
                     <div class="row"><div class="col-sm-6">
-                        <div class="dataTables_info" id="datatable-editable_info" role="status" aria-live="polite">展示 10 总共 66 项</div>
+                        <div class="dataTables_info" id="datatable-editable_info" role="status" aria-live="polite">展示 10 总共 {{items.length}} 项</div>
                         </div>
                         <div class="col-sm-6">
                             <div class="dataTables_paginate paging_simple_numbers" id="datatable-editable_paginate">
                                 <ul class="pagination">
-                                    <li class="paginate_button previous disabled" aria-controls="datatable-editable" tabindex="0" id="datatable-editable_previous">
+                                    <li class="paginate_button previous disabled" id="datatable-editable_previous">
                                         <a href="#">上一页</a>
                                     </li>
-                                    <li class="paginate_button active" aria-controls="datatable-editable" tabindex="0">
-                                        <a href="#">1</a>
+                                    <li class="paginate_button" v-for="(item,index) in sumPage" :key="index" :class="{ active: currentPage==index }">
+                                        <a @click="switchPage(index)">{{++index}}</a>
                                     </li>
-                                    <li class="paginate_button " aria-controls="datatable-editable" tabindex="0">
-                                        <a href="#">2</a>
-                                    </li>
-                                    <li class="paginate_button previous" aria-controls="datatable-editable" tabindex="0" id="datatable-editable_previous">
+                                    <li class="paginate_button previous">
                                         <a href="#" @click="show()">下一页</a>
                                     </li>
                                 </ul>
@@ -105,6 +102,7 @@
                     </div>
                 </div>
             </div>
+        <div style="margin-top:100px"></div>
 
         </div>
     </div>
@@ -116,27 +114,77 @@ export default {
   name: "doclist",
   data() {
     return {
-      items: {
-        cs1: 1,
-        cs2: 2,
-        cs3: 3
-      },
-      select:[]
+      items: [],
+      showItems:[],
+      select: [],
+      isSelectedAll: false,
+      PageShowSum: 10,
+      currentPage: "0",
+      sumPage: 1
     };
+  },
+  mounted() {
+    this.mockcs();
   },
   methods: {
     toDocCreate() {
       this.$router.push("doccreate");
     },
-    show(){
-        alert(this.select);
+    show() {
+      alert(this.select);
     },
-    selcetAll(){
-        $('[name="jc"]').prop('checked',true);
+    selcetAll() {
+      //$('[name="jc"]').prop('checked',true);
+      if (!this.isSelectedAll) {
+        this.items.forEach(item => {
+          this.select.push(item.plantid);
+          this.isSelectedAll = true;
+        });
+      } else if (this.isSelectedAll) {
+        this.select = [];
+        this.isSelectedAll = false;
+      }
+    },
+    mockcs() {
+      this.axios
+        .post("/news/api", { withCredentials: true })
+        .then(res => {
+          // console.log(res.data)
+          this.items = res.data;
+          this.sumPage = Math.ceil(res.data.length / this.PageShowSum);
+          //页面加载完成，默认加载第一页
+          this.showEachPage(1);
+          console.log("当前数据分页为：--->", this.sumPage);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    indexSelect(index) {
+    //   alert(index);
+    },
+    switchPage(page) {
+        let p=page-1;
+        this.currentPage = `${p}`;
+        console.log(this.currentPage)
+        this.showEachPage(page);
+    },
+    showEachPage(page){
+        let all=this.items;
+        this.showItems=[];
+        for(let i=(page-1)*10;i<page*10;i++){
+            if(all[i]==null){
+                break;
+            }else{
+            this.showItems.push(all[i]);
+            }
+        }
+        console.log(page,this.showItems)
     }
   }
 };
 </script>
 
 <style>
+
 </style>
