@@ -22,7 +22,7 @@
                         <div class="col-sm-6">
                             <div class="dataTables_length" id="datatable-editable_length">
                                 <label>显示 
-                                    <select name="datatable-editable_length" aria-controls="datatable-editable" class="form-control input-sm">
+                                    <select class="form-control input-sm" v-model="PageShowSum" @change="changePageShowSum()">
                                         <option value="10">10</option>
                                         <option value="25">25</option>
                                         <option value="50">50</option>
@@ -35,7 +35,7 @@
                         <div class="col-sm-6">
                             <div id="datatable-editable_filter" class="dataTables_filter" style="margin-right:45px;">
                                 <label>搜索:
-                                    <input type="search" class="form-control input-sm" placeholder="">
+                                    <input type="search" class="form-control input-sm search-input" placeholder="请输入植物书名" @input="doSearch($event)" v-model="doSearchText">
                                 </label>
                             </div>
                         </div>
@@ -73,28 +73,26 @@
                                     <td>{{item.habit}}</td>
                                     <td>{{item.purpose}}</td>
                                     <td class="actions">
-                                        <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                                        <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                                        <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                        <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                        <a class="on-default edit-row" @click="editItem(index)"><i class="fa fa-pencil"></i></a>
+                                        <a class="on-default remove-row" @click="deleteItem(index)"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     <div class="row"><div class="col-sm-6">
-                        <div class="dataTables_info" id="datatable-editable_info" role="status" aria-live="polite">展示 10 总共 {{items.length}} 项</div>
+                        <div class="dataTables_info" id="datatable-editable_info" role="status" aria-live="polite">展示 {{PageShowSum}} 总共 {{items.length}} 项</div>
                         </div>
                         <div class="col-sm-6">
                             <div class="dataTables_paginate paging_simple_numbers" id="datatable-editable_paginate">
                                 <ul class="pagination">
-                                    <li class="paginate_button previous disabled" id="datatable-editable_previous">
-                                        <a href="#">上一页</a>
+                                    <li class="paginate_button previous" :class="{ disabled: currentPage=='0' }">
+                                        <a @click="previousPage()">上一页</a>
                                     </li>
                                     <li class="paginate_button" v-for="(item,index) in sumPage" :key="index" :class="{ active: currentPage==index }">
                                         <a @click="switchPage(index)">{{++index}}</a>
                                     </li>
-                                    <li class="paginate_button previous">
-                                        <a href="#" @click="show()">下一页</a>
+                                    <li class="paginate_button next" :class="{ disabled: currentPage==sumPage-1 }">
+                                        <a @click="nextPage()">下一页</a>
                                     </li>
                                 </ul>
                             </div>
@@ -110,6 +108,7 @@
 </template>
 
 <script>
+const s_alert = require("../../utils/alert");
 export default {
   name: "doclist",
   data() {
@@ -120,18 +119,16 @@ export default {
       isSelectedAll: false,
       PageShowSum: 10,
       currentPage: "0",
-      sumPage: 1
+      sumPage: null,
+      doSearchText:null
     };
   },
   mounted() {
     this.mockcs();
   },
   methods: {
-    toDocCreate() {
+    toDocCreate() { 
       this.$router.push("doccreate");
-    },
-    show() {
-      alert(this.select);
     },
     selcetAll() {
       //$('[name="jc"]').prop('checked',true);
@@ -151,35 +148,74 @@ export default {
         .then(res => {
           // console.log(res.data)
           this.items = res.data;
-          this.sumPage = Math.ceil(res.data.length / this.PageShowSum);
-          //页面加载完成，默认加载第一页
-          this.showEachPage(1);
-          console.log("当前数据分页为：--->", this.sumPage);
+          this.show();
         })
         .catch(err => {
           console.log(err);
         });
     },
-    indexSelect(index) {
-    //   alert(index);
+    show(){
+        this.sumPage = Math.ceil(this.items.length / this.PageShowSum);
+        //页面加载完成，默认加载第一页
+        let p=Number(this.currentPage)+1
+        this.showEachPage(p);
+        console.log("当前数据总页为：--->", this.sumPage);
     },
     switchPage(page) {
         let p=page-1;
         this.currentPage = `${p}`;
-        console.log(this.currentPage)
+        console.log('当前-->',page)
         this.showEachPage(page);
     },
     showEachPage(page){
         let all=this.items;
         this.showItems=[];
-        for(let i=(page-1)*10;i<page*10;i++){
+        for(let i=(page-1)*this.PageShowSum;i<page*this.PageShowSum;i++){
             if(all[i]==null){
-                break;
+                break; 
             }else{
             this.showItems.push(all[i]);
             }
         }
-        console.log(page,this.showItems)
+    },
+    nextPage(){
+        if(this.currentPage==this.sumPage-1){
+            s_alert.basic("已经到达最后一页了……");
+        }else{
+            let p=Number(this.currentPage)+1;
+            this.currentPage=`${p}`
+            console.log('当前-->',p+1)
+            this.showEachPage(p+1);
+        }
+    },
+    previousPage(){
+        if(this.currentPage=='0'){
+            s_alert.basic("已经到达最前面了……");
+        }else{
+            let p=Number(this.currentPage)-1;
+            this.currentPage=`${p}`
+            console.log('当前-->',p+1)
+            this.showEachPage(p+1);
+        }
+    },
+    editItem(index){
+        alert('edit'+JSON.stringify(this.showItems[index]))
+    },
+    deleteItem(index){
+        // alert('delete'+index)
+        var j=confirm('确认删除吗？')
+        if(j){
+            this.showItems.splice(index,1);
+            this.items.splice(this.currentPage*this.PageShowSum+index,1)
+            this.show();
+        }
+    },
+    changePageShowSum(){
+        this.currentPage='0';
+        this.show();
+    },
+    doSearch(e){
+        console.log(this.doSearchText)
     }
   }
 };
