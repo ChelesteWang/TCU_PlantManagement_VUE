@@ -7,7 +7,7 @@ const producePlants=function(){
     let article=[]
     for (let i = 0; i < 106; i++) {
         let plants={
-            plantid:Random.integer(),
+            plantid:Random.integer(0,200),
             aname:Random.cname(),
             alias:Random.cname(),
             lname:Random.cname(),

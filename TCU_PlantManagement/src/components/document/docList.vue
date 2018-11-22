@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                        <table class="table table-bordered table-striped" id="datatable-editable">
+                        <table class="table table-bordered table-striped" style="" id="datatable-editable">
                             <thead>
                                 <tr>
                                     <th><i @click="selcetAll()">选择</i></th>
@@ -78,8 +78,9 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>
-                    <div class="row"><div class="col-sm-6">
+                        </table>                       
+                    <div class="row">
+                        <div class="col-sm-6">
                         <div class="dataTables_info" id="datatable-editable_info" role="status" aria-live="polite">展示 {{PageShowSum}} 总共 {{items.length}} 项</div>
                         </div>
                         <div class="col-sm-6">
@@ -100,8 +101,8 @@
                     </div>
                 </div>
             </div>
-        <div style="margin-top:100px"></div>
-
+            <div style="margin-top:100px"></div>
+            
         </div>
     </div>
         
@@ -114,20 +115,21 @@ export default {
   data() {
     return {
       items: [],
-      showItems:[],
+      filterItems: [],
+      showItems: [],
       select: [],
       isSelectedAll: false,
       PageShowSum: 10,
       currentPage: "0",
       sumPage: null,
-      doSearchText:null
+      doSearchText: null
     };
   },
   mounted() {
     this.mockcs();
   },
   methods: {
-    toDocCreate() { 
+    toDocCreate() {
       this.$router.push("doccreate");
     },
     selcetAll() {
@@ -154,73 +156,88 @@ export default {
           console.log(err);
         });
     },
-    show(){
-        this.sumPage = Math.ceil(this.items.length / this.PageShowSum);
-        //页面加载完成，默认加载第一页
-        let p=Number(this.currentPage)+1
-        this.showEachPage(p);
-        console.log("当前数据总页为：--->", this.sumPage);
+    show() {
+      this.sumPage = Math.ceil(this.items.length / this.PageShowSum);
+      //页面加载完成，默认加载第一页
+      let p = Number(this.currentPage) + 1;
+      this.showEachPage(p);
+      console.log("当前数据总页为：--->", this.sumPage);
     },
     switchPage(page) {
-        let p=page-1;
+      let p = page - 1;
+      this.currentPage = `${p}`;
+      console.log("当前-->", page);
+      this.showEachPage(page);
+    },
+    showEachPage(page) {
+      let all = this.items;
+      this.showItems = [];
+      for (
+        let i = (page - 1) * this.PageShowSum;
+        i < page * this.PageShowSum;
+        i++
+      ) {
+        if (all[i] == null) {
+          break;
+        } else {
+          this.showItems.push(all[i]);
+        }
+      }
+    },
+    nextPage() {
+      if (this.currentPage == this.sumPage - 1) {
+        s_alert.basic("已经到达最后一页了……");
+      } else {
+        let p = Number(this.currentPage) + 1;
         this.currentPage = `${p}`;
-        console.log('当前-->',page)
-        this.showEachPage(page);
+        console.log("当前-->", p + 1);
+        this.showEachPage(p + 1);
+      }
     },
-    showEachPage(page){
-        let all=this.items;
-        this.showItems=[];
-        for(let i=(page-1)*this.PageShowSum;i<page*this.PageShowSum;i++){
-            if(all[i]==null){
-                break; 
-            }else{
-            this.showItems.push(all[i]);
-            }
-        }
+    previousPage() {
+      if (this.currentPage == "0") {
+        s_alert.basic("已经到达最前面了……");
+      } else {
+        let p = Number(this.currentPage) - 1;
+        this.currentPage = `${p}`;
+        console.log("当前-->", p + 1);
+        this.showEachPage(p + 1);
+      }
     },
-    nextPage(){
-        if(this.currentPage==this.sumPage-1){
-            s_alert.basic("已经到达最后一页了……");
-        }else{
-            let p=Number(this.currentPage)+1;
-            this.currentPage=`${p}`
-            console.log('当前-->',p+1)
-            this.showEachPage(p+1);
-        }
+    editItem(index) {
+      alert("edit" + JSON.stringify(this.showItems[index]));
     },
-    previousPage(){
-        if(this.currentPage=='0'){
-            s_alert.basic("已经到达最前面了……");
-        }else{
-            let p=Number(this.currentPage)-1;
-            this.currentPage=`${p}`
-            console.log('当前-->',p+1)
-            this.showEachPage(p+1);
-        }
-    },
-    editItem(index){
-        alert('edit'+JSON.stringify(this.showItems[index]))
-    },
-    deleteItem(index){
-        // alert('delete'+index)
-        var j=confirm('确认删除吗？')
-        if(j){
-            this.showItems.splice(index,1);
-            this.items.splice(this.currentPage*this.PageShowSum+index,1)
-            this.show();
-        }
-    },
-    changePageShowSum(){
-        this.currentPage='0';
+    deleteItem(index) {
+      // alert('delete'+index)
+      var j = confirm("确认删除吗？");
+      if (j) {
+        this.showItems.splice(index, 1);
+        this.items.splice(this.currentPage * this.PageShowSum + index, 1);
         this.show();
+      }
     },
-    doSearch(e){
-        console.log(this.doSearchText)
+    changePageShowSum() {
+      this.currentPage = "0";
+      this.show();
+    },
+    doSearch(e) {
+      console.log(this.doSearchText);
+      // this.showItems=[]
+      // for(let i=0;i<this.items.length;i++){
+      //     if(String(this.items[i].plantid).indexOf(this.doSearchText)==-1){
+      //         // console.log(String(this.items[i].plantid).indexOf(this.doSearchText))
+      //     }else{
+      //         this.showItems.concat(this.items[i])
+      //         console.log(this.items[i])
+      //     }
+      // }
     }
   }
 };
 </script>
-
-<style>
-
+<style scoped>
+.searchinfo {
+  display:block;
+  margin-top: -650px;
+}
 </style>
