@@ -44,6 +44,12 @@ export default {
     },
     router(uid) {
       this.$router.push({ path: `/login/${uid}` });
+    },
+    setGlobleUrlq(url){
+      //console.log('-->',url)
+      this.globleUrl=url;
+      console.log(this.globleUrl)
+      return this.globleUrl
     }
   },
   components: {

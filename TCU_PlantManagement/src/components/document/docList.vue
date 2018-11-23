@@ -40,6 +40,8 @@
                             </div>
                         </div>
                     </div>
+                    <!-- 外层div 判断是否隐藏 主list -->
+                    <div v-if="mainList">
                         <table class="table table-bordered table-striped" style="" id="datatable-editable">
                             <thead>
                                 <tr>
@@ -78,8 +80,8 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>                       
-                    <div class="row">
+                        </table>    
+                        <div class="row">
                         <div class="col-sm-6">
                         <div class="dataTables_info" id="datatable-editable_info" role="status" aria-live="polite">展示 {{PageShowSum}} 总共 {{items.length}} 项</div>
                         </div>
@@ -95,10 +97,57 @@
                                     <li class="paginate_button next" :class="{ disabled: currentPage==sumPage-1 }">
                                         <a @click="nextPage()">下一页</a>
                                     </li>
+                                    <li>
+                                        <a @click="cs()">测试</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> 
+                    </div>    
+                    <!-- 外层div 判断是否隐藏 搜索list -->
+                    <div v-if="searchList">
+                        <table class="table table-bordered table-striped" style="" id="datatable-editable">
+                            <thead>
+                                <tr>
+                                    <th><i @click="selcetAll()">选择</i></th>
+                                    <th>植株ID</th>
+                                    <th>书名</th>
+                                    <th>别名</th>
+                                    <th>拉丁名</th>
+                                    <th>科</th>
+                                    <th>属</th>
+                                    <th>种</th>
+                                    <th>形态</th>
+                                    <th>习性</th>
+                                    <th>用途</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="gradeX" v-for="(item,index) in searchItems" :key="item.id">
+                                    <td align="center"> 
+                                        <input type="checkbox" v-model="select" @change="indexSelect(index)" :value="item.plantid" name="jc">
+                                    </td>
+                                    <td>{{item.plantid}}</td>
+                                    <td>{{item.aname}}</td>
+                                    <td>{{item.alias}}</td>
+                                    <td>{{item.lname}}</td>
+                                    <td>{{item.family}}</td>
+                                    <td>{{item.genera}}</td>
+                                    <td>{{item.specie}}</td>
+                                    <td>{{item.morphology}}</td>
+                                    <td>{{item.habit}}</td>
+                                    <td>{{item.purpose}}</td>
+                                    <td class="actions">
+                                        <a class="on-default edit-row" @click="editItem(index)"><i class="fa fa-pencil"></i></a>
+                                        <a class="on-default remove-row" @click="deleteItem(index)"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>     
+                    </div>               
+                    
                 </div>
             </div>
             <div style="margin-top:100px"></div>
@@ -110,6 +159,8 @@
 
 <script>
 const s_alert = require("../../utils/alert");
+import app from "../../App.vue";
+var App = app;
 export default {
   name: "doclist",
   data() {
@@ -117,12 +168,15 @@ export default {
       items: [],
       filterItems: [],
       showItems: [],
+      searchItems: [],
       select: [],
       isSelectedAll: false,
       PageShowSum: 10,
       currentPage: "0",
       sumPage: null,
-      doSearchText: null
+      doSearchText: null,
+      mainList: true,
+      searchList: false
     };
   },
   mounted() {
@@ -222,22 +276,34 @@ export default {
     },
     doSearch(e) {
       console.log(this.doSearchText);
-      // this.showItems=[]
-      // for(let i=0;i<this.items.length;i++){
-      //     if(String(this.items[i].plantid).indexOf(this.doSearchText)==-1){
-      //         // console.log(String(this.items[i].plantid).indexOf(this.doSearchText))
-      //     }else{
-      //         this.showItems.concat(this.items[i])
-      //         console.log(this.items[i])
-      //     }
-      // }
+      if (this.doSearchText.length == 0) {
+        this.mainList = true;
+        this.searchList = false;
+      } else {
+        this.mainList = false;
+        this.searchList = true;
+
+        this.searchItems = [];
+        for (let i = 0; i < this.items.length; i++) {
+          if (String(this.items[i].plantid).indexOf(this.doSearchText) == -1) {
+            // console.log(String(this.items[i].plantid).indexOf(this.doSearchText))
+          } else {
+            this.searchItems.push(this.items[i]);
+          }
+        }
+      }
+    },
+    cs() {
+      //测试跨页面传值，调用
+      let random = Math.random();
+      alert(App.methods.setGlobleUrlq(random));
     }
   }
 };
 </script>
 <style scoped>
 .searchinfo {
-  display:block;
+  display: block;
   margin-top: -650px;
 }
 </style>
