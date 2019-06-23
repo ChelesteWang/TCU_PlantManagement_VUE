@@ -102,7 +102,7 @@ export default {
                     var ses = window.sessionStorage;
                     var d = JSON.stringify(res.data);
                     ses.setItem("data", d);
-                    cookie.setCookie(this.userName, this.passWord, 7);            
+                    cookie.setCookie(this.userName, this.passWord, 7);
                     s_alert.Success("登录成功","正在加载……","success");
                     this.$router.push("/menu");
                 }else{

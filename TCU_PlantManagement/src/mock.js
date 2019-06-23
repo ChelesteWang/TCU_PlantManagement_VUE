@@ -14,8 +14,8 @@ const producePlants=function(){
             family:Random.cword(1,3),
             genera:Random.cword(1,3),
             specie:Random.cword(1,3),
-            morphology:Random.csentence(10,30),
-            habit:Random.csentence(10,30),
+            morphology:Random.csentence(10,20),
+            habit:Random.csentence(10,20),
             purpose:Random.csentence(10,30),
 
             // pic:Random.dataImage('300x250','mock图片'),

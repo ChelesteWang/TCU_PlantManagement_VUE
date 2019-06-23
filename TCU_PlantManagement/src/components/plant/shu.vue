@@ -4,7 +4,7 @@
             
             <div class="row">
                 <div class="col-sm-12">
-                    <h4 class="page-title"> 档案列表 </h4>
+                    <h4 class="page-title"> 灌类植物管理 </h4>
                 </div>
             </div>
 
@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="m-b-30">
-                                <button id="addToTable" class="btn btn-primary waves-effect waves-light" @click="toDocCreate()"> 新增植物档案 <i class="fa fa-plus"></i></button>
+                                <button id="addToTable" class="btn btn-primary waves-effect waves-light" @click="toDocCreate()"> 新增植物 <i class="fa fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
@@ -77,10 +77,8 @@
                                     <td>{{item.Habit}}</td>
                                     <td>{{item.Purpose}}</td>
                                     <td class="actions">
-                                        <a class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="编辑树木"  @click="editItem(index)"><i class="fa fa-pencil"></i></a>
-                                        <a class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="删除树木"  @click="deleteItem(index)"><i class="fa fa-trash-o"></i></a>
-                                        <a class="on-default"  data-toggle="tooltip" data-placement="top" title="查看树木信息" @click="showTreeItem(index)"><i class="fa  fa-eye"></i></a>
-                                        <a class="on-default"  data-toggle="tooltip" data-placement="top" title="定位" @click="locationItem(index)"><i class="fa fa-map-marker"></i></a>
+                                        <a class="on-default edit-row" @click="editItem(index)"><i class="fa fa-pencil"></i></a>
+                                        <a class="on-default remove-row" @click="deleteItem(index)"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -101,9 +99,6 @@
                                     <li class="paginate_button next" :class="{ disabled: currentPage==sumPage-1 }">
                                         <a @click="nextPage()">下一页</a>
                                     </li>
-                                    <!-- <li>
-                                        <a @click="cs()">测试</a>
-                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -116,7 +111,6 @@
                                 <tr>
                                     <th><i @click="selcetAll()">选择</i></th>
                                     <th>植株ID</th>
-                                    <th>名称</th>
                                     <th>书名</th>
                                     <th>别名</th>
                                     <th>拉丁名</th>
@@ -134,22 +128,19 @@
                                     <td align="center"> 
                                         <input type="checkbox" v-model="select" @change="indexSelect(index)" :value="item.plantid" name="jc">
                                     </td>
-                                    <td>{{item.PlantID}}</td>
-                                    <td>{{item.name}}</td>
-                                    <td>{{item.AcademicName}}</td>
-                                    <td>{{item.Alias}}</td>
-                                    <td>{{item.LatinName}}</td>
-                                    <td>{{item.Family}}</td>
-                                    <td>{{item.Genera}}</td>
-                                    <td>{{item.Specie}}</td>
-                                    <td>{{item.Morphology}}</td>
-                                    <td>{{item.Habit}}</td>
-                                    <td>{{item.Purpose}}</td>
+                                    <td>{{item.plantid}}</td>
+                                    <td>{{item.aname}}</td>
+                                    <td>{{item.alias}}</td>
+                                    <td>{{item.lname}}</td>
+                                    <td>{{item.family}}</td>
+                                    <td>{{item.genera}}</td>
+                                    <td>{{item.specie}}</td>
+                                    <td>{{item.morphology}}</td>
+                                    <td>{{item.habit}}</td>
+                                    <td>{{item.purpose}}</td>
                                     <td class="actions">
-                                        <a class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="编辑树木"  @click="editItem(index)"><i class="fa fa-pencil"></i></a>
-                                        <a class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="删除树木"  @click="deleteItem(index)"><i class="fa fa-trash-o"></i></a>
-                                        <a class="on-default"  data-toggle="tooltip" data-placement="top" title="查看树木信息" @click="showTreeItem(index)"><i class="fa  fa-eye"></i></a>
-                                        <a class="on-default"  data-toggle="tooltip" data-placement="top" title="定位" @click="locationItem(index)"><i class="fa fa-map-marker"></i></a>
+                                        <a class="on-default edit-row" @click="editItem(index)"><i class="fa fa-pencil"></i></a>
+                                        <a class="on-default remove-row" @click="deleteItem(index)"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -190,9 +181,6 @@ export default {
   mounted() {
     this.mockcs();
   },
-  updated() {    
-    $(function () { $("[data-toggle='tooltip']").tooltip(); });
-  },
   methods: {
     toDocCreate() {
       this.$router.push("doccreate");
@@ -211,7 +199,7 @@ export default {
     },
     mockcs() {
       this.axios
-         .get(`${App.data().globleUrl}/plants?judge=0`)
+        .get(`${App.data().globleUrl}/plants?judge=0`)
         .then(res => {
           // console.log(res.data)
           this.items = res.data;
@@ -296,7 +284,7 @@ export default {
 
         this.searchItems = [];
         for (let i = 0; i < this.items.length; i++) {
-          if (String(this.items[i].name).indexOf(this.doSearchText) == -1) {
+          if (String(this.items[i].plantid).indexOf(this.doSearchText) == -1) {
             // console.log(String(this.items[i].plantid).indexOf(this.doSearchText))
           } else {
             this.searchItems.push(this.items[i]);

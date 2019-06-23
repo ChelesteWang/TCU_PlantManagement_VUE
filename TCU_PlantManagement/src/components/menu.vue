@@ -1,12 +1,18 @@
 <template>
-    <div>
+    <div class="">
       <!-- 头部 -->
       <header id="topnav">
-        <div class="topbar-main">
-          <div class="container">
-            <div class="topbar-left">
-              <a href="#/menu" class="logo"><i class="md md-terrain"></i> <span><router-link to="/menu/index" class="router">天津城建大学植物信息管理系统</router-link> </span></a>
+        <div class="topbar-main ">
+          <div class="container ">            
+            <div class="topbar-left">                  
+              <a href="#/menu" class="logo">
+                <a href="" class="profile ">
+                  <img :src=icon_src alt="user-img" class="user-img">
+                </a>
+                <span><router-link to="/menu/index" class="router">天津城建大学校园植物信息管理系统</router-link> </span>
+              </a>
             </div>
+
             <div class="menu-extras">
               <ul class="nav navbar-nav navbar-right pull-right">
                 <li>
@@ -15,62 +21,7 @@
                     <a href=""><i class="fa fa-search"></i></a>
                   </form>
                 </li>
-                <li class="dropdown hidden-xs">
-                  <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown"
-                    aria-expanded="true">
-                    <i class="md md-notifications"></i> <span class="badge badge-xs badge-danger">3</span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-lg">
-                    <li class="text-center notifi-title">通知</li>
-                    <li class="list-group">
-                      <!-- list item-->
-                      <a href="javascript:void(0);" class="list-group-item">
-                        <div class="media">
-                          <div class="pull-left">
-                            <em class="fa fa-user-plus fa-2x text-info"></em>
-                          </div>
-                          <div class="media-body clearfix">
-                            <div class="media-heading">新用户申请</div>
-                            <p class="m-0">
-                              <small>You have 10 unread messages</small>
-                            </p>
-                          </div>
-                        </div>
-                      </a>
-                      <!-- list item-->
-                      <a href="javascript:void(0);" class="list-group-item">
-                        <div class="media">
-                          <div class="pull-left">
-                            <em class="fa fa-diamond fa-2x text-primary"></em>
-                          </div>
-                          <div class="media-body clearfix">
-                            <div class="media-heading">新设置</div>
-                            <p class="m-0">
-                              <small>There are new settings available</small>
-                            </p>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="javascript:void(0);" class="list-group-item">
-                        <div class="media">
-                          <div class="pull-left">
-                            <em class="fa fa-bell-o fa-2x text-danger"></em>
-                          </div>
-                          <div class="media-body clearfix">
-                            <div class="media-heading">更新</div>
-                            <p class="m-0">
-                              <small>There are
-                                <span class="text-primary">2</span> new updates available</small>
-                            </p>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="javascript:void(0);" class="list-group-item">
-                        <small>显示所有的通知</small>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                
 
                 <li class="dropdown user-box">
                   <a href="" class="dropdown-toggle waves-effect waves-light profile " data-toggle="dropdown"
@@ -111,10 +62,10 @@
                 <li class="has-submenu">
                   <a href="#"><i class="md md-palette "></i><span> 植物管理 </span> </a>
                   <ul class="submenu">
-                    <li><a href="javascript:void(0);">科类管理</a></li>
-                    <li><a href="javascript:void(0);">属类管理</a></li>
-                    <li><a href="javascript:void(0);">种类管理</a></li>
-                    <li><a href="javascript:void(0);">植物列表</a></li>
+                    <li><a href="#/menu/ke">乔类管理</a></li>
+                    <li><a href="#/menu/shu">灌类管理</a></li>
+                    <li><a href="#/menu/zhong">篱类管理</a></li>
+                    <li><a href="#/menu/plant">植物列表</a></li>
                   </ul>
                 </li>
 
@@ -122,57 +73,20 @@
                   <a href="#"><i class="md md-description "></i><span> 档案管理 </span> </a>
                   <ul class="submenu">
                     <li><a href="#/menu/doccreate">档案建立</a></li>
-                    <li><a href="#/menu/docsupport">档案维护</a></li>
-                    <li><a href="#/menu/docSearch">档案查询</a></li>
                     <li><a href="#/menu/doclist">档案列表</a></li>
+                    <li><a href="#/menu/plantmap">植物地图</a></li>
                   </ul>
                 </li>
 
                 <li class="has-submenu">
                   <a href="#"><i class="md md-invert-colors-on"></i> <span> 养护管理 </span> </a>
                   <ul class="submenu">
-                    <li><a href="grid.html">灌水与排水</a></li>
-                    <li><a href="portlets.html">施肥</a></li>
-                    <li><a href="widgets.html">苗木整形与修剪</a></li>
-                    <li><a href="nestable-list.html">防治病虫害</a></li>
-                    <li><a href="ui-sliders.html">Sliders </a></li>
+                    <li><a href="javascript:void(0);">灌水与排水</a></li>
+                    <li><a href="javascript:void(0);">施肥</a></li>
+                    <li><a href="javascript:void(0);">苗木整形与修剪</a></li>
+                    <li><a href="javascript:void(0);">防治病虫害</a></li>
                   </ul>
-                </li>
-                <li class="has-submenu">
-                  <a href="#"><i class="md md-turned-in-not"></i> <span> 植物分类 </span> </a>
-                  <ul class="submenu">
-                    <li class="has-submenu">
-                      <a href="#">茎的形态</a>
-                      <ul class="submenu">
-                        <li><a href="material-icon.html">乔木</a></li>
-                        <li><a href="ion-icons.html">灌木</a></li>
-                        <li><a href="font-awesome.html">亚灌木</a></li>
-                        <li><a href="font-awesome.html">草本植物</a></li>
-                        <li><a href="font-awesome.html">藤本植物</a></li>
-                      </ul>
-                    </li>
-
-                    <li class="has-submenu">
-                      <a href="#">生态习性</a>
-                      <ul class="submenu">
-                        <li><a href="gmap.html">陆生植物</a></li>
-                        <li><a href="vector-map.html">水生植物</a></li>
-                        <li><a href="font-awesome.html">附生植物</a></li>
-                        <li><a href="font-awesome.html">寄生植物</a></li>
-                        <li><a href="font-awesome.html">腐生植物</a></li>
-                      </ul>
-                    </li>
-
-                    <li class="has-submenu">
-                      <a href="#">生活周期</a>
-                      <ul class="submenu">
-                        <li><a href="inbox.html">一年生植物</a></li>
-                        <li><a href="email-compose.html">二年生植物</a></li>
-                        <li><a href="email-read.html">多年生植物</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
+                </li>                
 
                 <li class="has-submenu">
                   <a href="#"><i class="md md-aspect-ratio"></i> <span> 校园风景 </span> </a>
@@ -180,40 +94,46 @@
                     <li class="has-submenu">
                       <a href="#">中心湖附近</a>
                       <ul class="submenu">
-                        <li><a href="material-icon.html">中心湖</a></li>
-                        <li><a href="ion-icons.html">鸭子湖</a></li>
-                        <li><a href="font-awesome.html">Font awesome</a></li>
+                        <li><a href="javascript:void(0);">中心湖</a></li>
+                        <li><a href="javascript:void(0);">鸭子湖</a></li>
                       </ul>
                     </li>
 
                     <li class="has-submenu">
                       <a href="#">体育馆附近</a>
                       <ul class="submenu">
-                        <li><a href="gmap.html"> 西门</a></li>
-                        <li><a href="vector-map.html"> 体育馆</a></li>
+                        <li><a href="javascript:void(0);"> 西门</a></li>
+                        <li><a href="javascript:void(0);"> 体育馆</a></li>
                       </ul>
                     </li>
 
                     <li class="has-submenu">
                       <a href="#">滨湖道附近</a>
                       <ul class="submenu">
-                        <li><a href="inbox.html">滨湖道</a></li>
-                        <li><a href="email-compose.html">二餐门口</a></li>
-                        <li><a href="email-read.html">小树林</a></li>
+                        <li><a href="javascript:void(0);">滨湖道</a></li>
+                        <li><a href="javascript:void(0);">二餐门口</a></li>
+                        <li><a href="javascript:void(0);">小树林</a></li>
                       </ul>
                     </li>
                   </ul>
                 </li>
 
                 <li class="has-submenu">
+                  <a href="#"><i class="md md-turned-in-not"></i> <span> 反馈报修 </span> </a>
+                  <ul class="submenu">
+                    <li><a href="javascript:void(0);">植物反馈</a></li>
+                  </ul>
+                </li>     
+
+                <li class="has-submenu">
                   <a href="#"><i class="md md-pages"></i><span>关于我们 </span> </a>
                   <ul class="submenu megamenu">
                     <li>
                       <ul>
-                        <li><a href="profile.html">系统简介</a></li>
-                        <li><a href="timeline.html">部门介绍</a></li>
-                        <li><a href="invoice.html">功能介绍</a></li>
-                        <li><a href="email-template.html">反馈信息</a></li>
+                        <li><a href="javascript:void(0);">系统简介</a></li>
+                        <li><a href="javascript:void(0);">部门介绍</a></li>
+                        <li><a href="javascript:void(0);">功能介绍</a></li>
+                        <li><a href="javascript:void(0);">反馈信息</a></li>
                       </ul>
                     </li>
                     <li>
@@ -273,7 +193,7 @@ export default {
   data() {
     return {
       icon_src:
-        "http://ww3.sinaimg.cn/thumb300/005NL6H7gw1ew1tp2et08j30cj0dl0tq.jpg"
+        "../../static/xx.png"
     };
   },
   mounted() {
@@ -308,6 +228,9 @@ export default {
 </script>
 
 <style scoped>
+.bc{
+  background-color: black
+}
 .yxfoot {
   position: fixed;
   bottom: 0;

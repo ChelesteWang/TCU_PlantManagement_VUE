@@ -4,7 +4,7 @@
             
             <div class="row">
                 <div class="col-sm-12">
-                    <h4 class="page-title"> 档案列表 </h4>
+                    <h4 class="page-title"> 植物列表 </h4>
                 </div>
             </div>
 
@@ -14,14 +14,14 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="m-b-30">
-                                <button id="addToTable" class="btn btn-primary waves-effect waves-light" @click="toDocCreate()"> 新增植物档案 <i class="fa fa-plus"></i></button>
+                                <button id="addToTable" class="btn btn-primary waves-effect waves-light" @click="toDocCreate()"> 新增植物 <i class="fa fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="dataTables_length" id="datatable-editable_length">
-                                <label>显示 
+                                <label class="col-sm-3">显示 
                                     <select class="form-control input-sm" v-model="PageShowSum" @change="changePageShowSum()">
                                         <option value="10">10</option>
                                         <option value="25">25</option>
@@ -29,6 +29,13 @@
                                         <option value="100">100</option>
                                     </select> 
                                     项
+                                </label>
+                                <label class="col-sm-3">植物类型 
+                                    <select class="form-control input-sm">
+                                        <option value="10">乔木</option>
+                                        <option value="25">灌木</option>
+                                        <option value="50">篱木</option>
+                                    </select> 
                                 </label>
                             </div>
                         </div>
@@ -101,9 +108,6 @@
                                     <li class="paginate_button next" :class="{ disabled: currentPage==sumPage-1 }">
                                         <a @click="nextPage()">下一页</a>
                                     </li>
-                                    <!-- <li>
-                                        <a @click="cs()">测试</a>
-                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -146,10 +150,9 @@
                                     <td>{{item.Habit}}</td>
                                     <td>{{item.Purpose}}</td>
                                     <td class="actions">
-                                        <a class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="编辑树木"  @click="editItem(index)"><i class="fa fa-pencil"></i></a>
-                                        <a class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="删除树木"  @click="deleteItem(index)"><i class="fa fa-trash-o"></i></a>
-                                        <a class="on-default"  data-toggle="tooltip" data-placement="top" title="查看树木信息" @click="showTreeItem(index)"><i class="fa  fa-eye"></i></a>
-                                        <a class="on-default"  data-toggle="tooltip" data-placement="top" title="定位" @click="locationItem(index)"><i class="fa fa-map-marker"></i></a>
+                                        <a class="on-default edit-row" @click="editItem(index)"><i class="fa fa-pencil"></i></a>
+                                        <a class="on-default remove-row" @click="deleteItem(index)"><i class="fa fa-trash-o"></i></a>
+                                        <a class="on-default remove-row" @click="deleteItem(index)"><i class="fa  fa-eye"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -211,7 +214,7 @@ export default {
     },
     mockcs() {
       this.axios
-         .get(`${App.data().globleUrl}/plants?judge=0`)
+        .get(`${App.data().globleUrl}/plants?judge=0`)
         .then(res => {
           // console.log(res.data)
           this.items = res.data;
