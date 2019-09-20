@@ -441,6 +441,9 @@ export default {
 </script>
 
 <style scoped>
+.bc{
+  background-color: black
+}
 .yxfoot {
     position: fixed;
     bottom: 0;
