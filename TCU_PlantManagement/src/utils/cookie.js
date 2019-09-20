@@ -1,5 +1,4 @@
-module.exports={
-    
+module.exports={    
     //设置cookie
     setCookie(c_name, c_pwd, exdays) {
         var exdate = new Date(); //获取时间

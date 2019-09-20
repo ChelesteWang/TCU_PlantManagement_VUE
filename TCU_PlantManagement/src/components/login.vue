@@ -14,13 +14,13 @@
 
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control input-lg" type="text" required="" placeholder="用户名" v-model="userName" v-on:keyup.enter="login()">
+                            <input class="form-control input-lg" type="text" required="" placeholder="学号" v-model="sid" v-on:keyup.enter="login()">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control input-lg" type="password" required="" placeholder="密码" v-model="passWord" v-on:keyup.enter="login()">
+                            <input class="form-control input-lg" type="password" required="" placeholder="密码" v-model="pass" v-on:keyup.enter="login()">
                         </div>
                     </div>
 
@@ -39,9 +39,6 @@
                     <div class="form-group text-center m-t-40">
                         <div class="col-xs-12">
                             <button class="btn btn-primary btn-lg w-lg waves-effect waves-light" @click="login()">登录</button>
-                            <!-- <button @click="setcookie">cookietest</button>
-                            <button @click="clearcookie">clearcookie</button>
-                            <button @click="getcookie">getcookie</button> -->
                         </div>
                     </div>
 
@@ -55,78 +52,58 @@
                     </div>
                 </div>
             </div>
-            <!-- <h3>{{username}},{{password}}</h3> -->
         </div>
     </div>
   </div>
 </template>
 
 <script>
-//引入 utils->cookie
 const cookie = require("../utils/cookie");
 const s_alert = require("../utils/alert");
-import app from '../App.vue'
+const ses = require("../utils/ses");
+const print = require("../utils/print");
+const apis = require("../interface/apis");
+
+import { mapMutations } from 'vuex'
 
 export default {
-  name: "logging",
+  name: "login",
   data() {
     return {
-      userName: "",
-      passWord: "",
-      username: "",
-      password: "",
-      judge: "",
+      sid: null,
+      pass: null,
       check: true
     };
   },
-  mounted() {
-    cookie.getCookie(this);
-  },
-   beforeRouteEnter(to, from, next) {
-    //alert(to.params.id);
-    next();
-  },
   methods: {
+    ...mapMutations(['LOGIN']),
     login() {
-      if (this.userName == "" || this.passWord == "") {
-          s_alert.basic("用户名或密码为空");
-      } else {
-        this.axios({
-          method: "post",
-          url: `${app.data().globleUrl}/users?judge=0&username=${this.userName}&password=${this.passWord}`
-        })
-          .then(res => {
-            this.content = res.data;
-            if (res.data.length > 0) {
-                if(this.check){
-                    var ses = window.sessionStorage;
-                    var d = JSON.stringify(res.data);
-                    ses.setItem("data", d);
-                    cookie.setCookie(this.userName, this.passWord, 7);            
-                    s_alert.Success("登录成功","正在加载……","success");
-                    this.$router.push("/menu");
+        if (this.sid == null || this.pass == null) {
+            s_alert.basic("用户名或密码为空");
+            return;
+        }else {
+            apis.user.login(this.sid , this.pass)
+            .then(res => {
+                if (res) {
+                    print.log(res.data)
+                    if(res.data.type === 1){
+                        let token = res.data.token || 'token'
+                        localStorage.setItem('token', token) //存储token
+                        localStorage.setItem('user', JSON.stringify(res.data)) //存储 userinfo
+                        this.LOGIN({
+                            token: token,
+                            userinfo: res.data
+                        });
+                        s_alert.Success( "登录成功！", "现在可以对系统进行设置", "success" );
+                        this.$router.push({ name: "menu" });
+                    }else{
+                        s_alert.Success( "没有权限进入！", "此系统仅限管理员能操作", "warning" )
+                    }
                 }else{
-                    s_alert.Success("登录成功","正在加载……","success");
-                    this.$router.push("/menu");
-                }
-            } else {
-                s_alert.Timer("登录失败","用户名或密码有误");
-            }
-          })
-          .catch(error => console.log(error));
-      }
-    },
-    select() {
-      alert("selected!");
-    },
-    setcookie() {
-      cookie.setCookie("name", "yexuan", 7);
-    },
-    clearcookie() {
-      cookie.clearCookie();
-    },
-    getcookie() {
-     cookie.getCookie(this);
+                    s_alert.Success( "用户名或密码错误！", "请检查后重试", "warning" )
+                }              
+            })
+        }   
     }
   }
 };

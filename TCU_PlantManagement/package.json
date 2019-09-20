@@ -15,9 +15,11 @@
     "bootstrap": "4.1.3",
     "hammerjs": "^2.0.8",
     "jquery": "^3.3.1",
+    "jsonwebtoken": "^8.5.1",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.4",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

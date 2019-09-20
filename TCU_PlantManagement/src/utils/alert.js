@@ -15,17 +15,18 @@ module.exports = {
     },
 
     //Warning Message
-    Warning(title,text,) {
+    Warning(t1,t2) {
         swal({
-            title: "Are you sure?",
-            text: "You will not be able to recover this imaginary file!",
+            title: t1,
+            text: t2,
             type: "warning",
             showCancelButton: true,
+            cancelButtonText:'取消',
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
+            confirmButtonText: "我知道了",
+            closeOnConfirm: true
         }, function () {
-            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            // swal("Deleted!", "Your imaginary file has been deleted.", "success");
         });
     },
 
