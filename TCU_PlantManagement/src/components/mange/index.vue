@@ -4,16 +4,6 @@
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
-                    <!-- <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> 设置 <span class="m-l-5"><i class="fa fa-cog"></i></span></button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </div> -->
                     <h4 class="page-title">欢迎 !</h4>
                 </div>
             </div>
@@ -26,16 +16,8 @@
                             <i class="ion-ios7-location"></i>
                         </span>
                         <div class="mini-stat-info text-right">
-                            <span class="counter">521</span>
+                            <span class="counter" v-if="plant">{{plant.count}}</span>
                             总共植物数量
-                        </div>
-                        <div class="tiles-progress">
-                            <div class="m-t-20">
-                                <h5 class="text-uppercase text-white m-0">
-                                    上周新增植株
-                                    <span class="pull-right">23</span>
-                                </h5>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -45,16 +27,8 @@
                             <i class="md md-aspect-ratio"></i>
                         </span>
                         <div class="mini-stat-info text-right">
-                            <span class="counter">956</span>
+                            <span class="counter" v-if="photo">{{photo.count}}</span>
                             总共校园风景
-                        </div>
-                        <div class="tiles-progress">
-                            <div class="m-t-20">
-                                <h5 class="text-uppercase text-white m-0">
-                                    上周新增风景
-                                    <span class="pull-right">59</span>
-                                </h5>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -65,16 +39,8 @@
                             <i class="md md-invert-colors-on"></i>
                         </span>
                         <div class="mini-stat-info text-right">
-                            <span class="counter">5210</span>
+                            <span class="counter" v-if="protect">{{protect.count}}</span>
                             植物养护次数
-                        </div>
-                        <div class="tiles-progress">
-                            <div class="m-t-20">
-                                <h5 class="text-uppercase text-white m-0">
-                                    上周养护次数
-                                    <span class="pull-right">136</span>
-                                </h5>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,14 +53,6 @@
                         <div class="mini-stat-info text-right">
                             <span class="counter">20544</span>
                             总共系统访问量
-                        </div>
-                        <div class="tiles-progress">
-                            <div class="m-t-20">
-                                <h5 class="text-uppercase text-white m-0">
-                                    最近访问量
-                                    <span class="pull-right">1026</span>
-                                </h5>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -220,28 +178,37 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /Portlet -->
                 </div>
-                <!-- end col -->
             </div>
-            <!-- End row -->
         </div>
     </div>
 </template>
 
 <script>
+const apis = require("../../interface/apis").default;
+
 export default {
     name: "index",
     data() {
-        return {};
+        return {
+            plant:null,
+            protect:null,
+            photo:null
+        };
     },
-    mounted() {
+    async mounted() {
         this.map();
-        this.map_small()
+        this.map_small();
+        this.init();
     },
     methods: {
+        async init(){
+            // 获取数据
+            apis.plant.findAll().then(res=>{ this.plant = res.data })
+            apis.protect.findAll().then(res=>{ this.protect = res.data })
+            apis.photo.findAll().then(res=>{ this.photo = res.data })
+        },
         map(){
-
             //GPS坐标
             var x = 117.088437;
             var y = 39.092823;

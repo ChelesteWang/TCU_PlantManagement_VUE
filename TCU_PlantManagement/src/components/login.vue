@@ -62,7 +62,7 @@ const cookie = require("../utils/cookie");
 const s_alert = require("../utils/alert");
 const ses = require("../utils/ses");
 const print = require("../utils/print");
-const apis = require("../interface/apis");
+const apis = require("../interface/apis").default;
 
 import { mapMutations } from 'vuex'
 

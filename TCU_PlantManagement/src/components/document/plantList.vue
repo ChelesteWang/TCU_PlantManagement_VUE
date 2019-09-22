@@ -3,11 +3,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <h4 class="page-title">植物管理</h4>
+                    <h4 class="page-title">种类列表</h4>
                 </div>
             </div>
             <div class="panel">
-                <div class="panel-body">                    
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="m-b-30">
+                                <button
+                                    id="addToTable"
+                                    class="btn btn-primary waves-effect waves-light"
+                                    data-toggle="modal" data-target="#create"
+                                    @click="doCreate()"
+                                >
+                                    新增植物种类
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="dataTables_length" id="datatable-editable_length">
@@ -38,48 +53,48 @@
                                 <tr>
                                     <th>#</th>
                                     <th>编号</th>
-                                    <th>号牌</th>
-                                    <th>位置经度</th>
-                                    <th>位置纬度</th>
-                                    <th>位置高程</th>
-                                    <th>lon</th>
-                                    <th>lat</th>
                                     <th>名称</th>
-
+                                    <th>学名</th>
+                                    <th>别名</th>
+                                    <th>拉丁名</th>
                                     <th>科</th>
                                     <th>属</th>
                                     <th>种</th>
-                                    <th>分类</th>
+                                    <th>形态</th>
+                                    <th>习性</th>
+                                    <th>用途</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="gradeX" v-for="(item,index) in showItems" :key="index">
+                                    <td>{{index}}</td>
                                     <td>{{item.id}}</td>
-                                    <td>{{item.tid}}</td>
-                                    <td>{{item.card}}</td>
-                                    <td>{{item.x}}</td>
-                                    <td>{{item.y}}</td>
-                                    <td>{{item.height}}</td>
-                                    <td>{{item.lon}}</td>
-                                    <td>{{item.lat}}</td>
                                     <td>{{item.name}}</td>
+                                    <td>{{item.academic}}</td>
+                                    <td>{{item.alias}}</td>
+                                    <td>{{item.latin}}</td>
+                                    <td>{{item.family}}</td>
+                                    <td>{{item.genera}}</td>
+                                    <td>{{item.specie}}</td>
 
-                                    <td>{{item.plant.family}}</td>
-                                    <td>{{item.plant.genera}}</td>
-                                    <td>{{item.plant.specie}}</td>
-                                    <td>{{item.kind.name}}</td>
+                                    <td>
+                                        <i class="fa fa-bars" data-toggle="tooltip" data-placement="top" title="查看" @click="show(item.morphology)"></i>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-bars" data-toggle="tooltip" data-placement="top" title="查看" @click="show(item.habit)"></i>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-bars" data-toggle="tooltip" data-placement="top" title="查看" @click="show(item.purpose)"></i>
+                                    </td>
                                     
                                     <td class="actions" >
-                                        <label @click="dodetail(item.plant)" data-toggle="modal" data-target="#Model">
-                                            <i class="fa fa-navicon" data-toggle="tooltip" data-placement="top" title="信息"></i>
-                                        </label>
-                                        <label @click="editItem(item)" data-toggle="modal" data-target="#delete">
+                                        <a @click="doeditItem(item)" data-toggle="modal" data-target="#edit">
                                             <i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="编辑"></i>
-                                        </label>
-                                        <label @click="deleteItem(item)">
+                                        </a>
+                                        <a @click="deleteItem(item)">
                                             <i class="fa fa-trash-o" data-toggle="tooltip" data-placement="top" title="删除"></i>
-                                        </label>
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -125,12 +140,12 @@
         </div>
 
         <!-- 新建档案 -->
-        <div id="create" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true">
+        <div id="create" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" v-if="createItem">
             <div class="modal-dialog" style="width:55%">
                 <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myModalLabel">新建档案信息</h4>
+                    <h4 class="modal-title" id="myModalLabel">新建种类信息</h4>
                 </div>
                     <div class="modal-body" align='center'>
                     <div class="row">
@@ -139,45 +154,9 @@
                                 <div class="panel-body">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">树木编号</label>
+                                            <label class="col-md-2 control-label">编号</label>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" v-model="createItem.tid">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">树牌编号</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" v-model="createItem.card">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">位置经度</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" v-model="createItem.x">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">位置纬度</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" v-model="createItem.y">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">位置高程</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" v-model="createItem.height">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">lon</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" v-model="createItem.lon">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">lat</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" v-model="createItem.lat">
+                                                <input type="number" class="form-control" v-model="createItem.id">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -187,19 +166,57 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-md-2 control-label" style="font-weight:900"><strong>类型:</strong></div>
+                                            <label class="col-md-2 control-label">学名</label>
                                             <div class="col-md-10">
-                                                <select class="form-control" v-model="createItem.kind_id">
-                                                    <option v-for="(item,index) in kinds" :key="index" :value="item.id">{{item.name}}</option>
-                                                </select>
+                                                <input type="text" class="form-control" v-model="createItem.academic">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-md-2 control-label" style="font-weight:900"><strong>植株:</strong></div>
+                                            <label class="col-md-2 control-label">别名</label>
                                             <div class="col-md-10">
-                                                <select class="form-control" v-model="createItem.plant_id">
-                                                    <option v-for="(item,index) in plants" :key="index" :value="item.id">{{item.name}}</option>
-                                                </select>
+                                                <input type="text" class="form-control" v-model="createItem.alias">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">拉丁名</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" v-model="createItem.latin">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">科</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" v-model="createItem.family">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">属</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" v-model="createItem.genera">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">种</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" v-model="createItem.specie">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">形态</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" v-model="createItem.morphology">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">习性</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" v-model="createItem.habit">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">用途</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" v-model="createItem.purpose">
                                             </div>
                                         </div>
                                     </form>
@@ -210,136 +227,91 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" @click="toCreat()">提交档案</button>
-                </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 档案详细信息 -->
-        <div id="Model" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true">
-            <div class="modal-dialog" style="width:55%">
-                <div class="modal-content">
-                <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">档案详细信息</h4>
-                </div>
-                    <div class="modal-body" align='center'>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <form class="form-horizontal" role="form" v-if="detail">
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">名称</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" disabled v-model="detail.name">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">学名</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control"  disabled v-model="detail.academic">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">别名</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" disabled v-model="detail.alias">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">拉丁名</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" disabled v-model="detail.latin">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">形态</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" v-model="detail.morphology">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">习性</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" v-model="detail.habit">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">用途</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" v-model="detail.purpose">
-                                            </div>
-                                        </div>
-                                    </form>                     
-                                </div>
-                            </div>
-                        </div>
-                    </div>         
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" @click="toCreat()">提交类别</button>
                 </div>
                 </div>
             </div>
         </div>
 
         <!-- 修改信息 -->
-        <div id="delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" v-if="item">
-            <div class="modal-dialog">
+        <div id="edit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" v-if="editItem">
+            <div class="modal-dialog" style="width:50%">
                 <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myModalLabel">编辑植物信息</h4>
+                    <h4 class="modal-title" id="myModalLabel">编辑植物种类</h4>
                 </div>
                 <div class="modal-body" align='center'>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="panel panel-default">
-                                <div class="panel-heading"><h4>修改植物信息</h4></div>
+                                <div class="panel-heading"><h4>修改植物种类</h4></div>
                                 <div class="panel-body">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">编号</label>
                                             <div class="col-md-10">
-                                                <input type="number" class="form-control" v-model="item.tid">
+                                                <input type="number" class="form-control" v-model="editItem.id">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">号牌</label>
+                                            <label class="col-md-2 control-label">名称</label>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" v-model="item.card">
+                                                <input type="text" class="form-control" v-model="editItem.name">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">位置经度</label>
+                                            <label class="col-md-2 control-label">学名</label>
                                             <div class="col-md-10">
-                                                <input type="number" class="form-control" v-model="item.x">
+                                                <input type="text" class="form-control" v-model="editItem.academic">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">位置纬度</label>
+                                            <label class="col-md-2 control-label">别名</label>
                                             <div class="col-md-10">
-                                                <input type="number" class="form-control" v-model="item.y">
+                                                <input type="text" class="form-control" v-model="editItem.alias">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">位置高程</label>
+                                            <label class="col-md-2 control-label">拉丁名</label>
                                             <div class="col-md-10">
-                                                <input type="number" class="form-control" v-model="item.height">
+                                                <input type="text" class="form-control" v-model="editItem.latin">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">lon</label>
+                                            <label class="col-md-2 control-label">科</label>
                                             <div class="col-md-10">
-                                                <input type="number" class="form-control" v-model="item.lon">
+                                                <input type="text" class="form-control" v-model="editItem.family">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">lat</label>
+                                            <label class="col-md-2 control-label">属</label>
                                             <div class="col-md-10">
-                                                <input type="number" class="form-control" v-model="item.lat">
+                                                <input type="text" class="form-control" v-model="editItem.genera">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">种</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" v-model="editItem.specie">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">形态</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" v-model="editItem.morphology">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">习性</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" v-model="editItem.habit">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">用途</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" v-model="editItem.purpose">
                                             </div>
                                         </div>
                                     </form>
@@ -372,8 +344,6 @@ export default {
     name: "doclist",
     data() {
         return {
-            // 种类信息
-            kind:null,
             // 分页信息
             off:0,
             currentPage: 0,
@@ -383,21 +353,14 @@ export default {
             showItems: [],
             total:0,
 
-            doSearchText: null,
-            isSearch:false,
-
             detail: null,
-            item:null,
 
             // 新建
             kinds:null,
             plants:null,
+            editItem:{},
             createItem:{}
         };
-    },
-    created() {
-      this.kind = this.$route.params.kind;
-      console.log(this.kind);
     },
     mounted() {
         this.getPage();
@@ -409,32 +372,18 @@ export default {
         getPage(){ this.off = this.currentPage*this.PageShowSum; },
         // 初始化数据
         async init(){
-            let lists = await apis.list.findAndCountAllByKind(this.kind, this.off, this.PageShowSum)
+            let lists = await apis.plant.findAndCountAll(this.off, this.PageShowSum)
             const { count,rows } = lists.data;
             this.total = count;
             this.showItems = rows;
             this.sumPage = Math.ceil(this.total / this.PageShowSum);
             console.log(lists.data)
         },
-        // 定位到创建
-        async toDocCreate() { 
-            // 初始化数据
-            this.createItem = {};
-
-            let kinds = await apis.kind.findAll();
-            this.kinds = kinds.data.rows;
-            console.log(kinds)
-
-            let plants = await apis.plant.findAll();
-            this.plants = plants.data.rows;
-            console.log(plants)
-        },
         // 更改页面单元展示数量
         changePageShowSum(){
             this.currentPage = 0;
             this.off = 0;
-            if(this.isSearch) this.getSearch();
-            else this.init();
+            this.init();       
         },
         // 上一页
         previousPage(){
@@ -444,8 +393,7 @@ export default {
             }
             this.currentPage --;
             this.getPage();
-            if(this.isSearch) this.getSearch();
-            else this.init();
+            this.init();       
         },
         // 下一页
         nextPage(){
@@ -455,32 +403,33 @@ export default {
             }
             this.currentPage ++;
             this.getPage();
-            if(this.isSearch) this.getSearch();
-            else this.init();
+            this.init();       
         },
+        // 点击创建
+        doCreate(){ this.createItem = {}; },
         // 创建元素
         async toCreat(){
             console.log(this.createItem);
-            const { tid,card,x,y,height,lon,lat,name,kind_id,plant_id } = this.createItem;
-            if( !tid || !card || !x ||!y || !height ||!lon ||!lat ||!name ||!kind_id || !plant_id ){
+            const { id,name,academic,alias,latin,family,genera,specie,morphology,habit,purpose } = this.createItem;
+            if( !id ||!name ||!academic ||!alias ||!latin ||!family ||!genera ||!specie ||!morphology ||!habit ||!purpose ){
                 s_alert.Warning("档案新建失败","不能输入有空喔~")
                 return;
             }
-            let newItem = await apis.list.create(this.createItem);
+            let newItem = await apis.plant.create(this.createItem);
             if(newItem){
+                this.init();
                 s_alert.basic('档案新建成功~');
                 return;
             }
         },
         // 获取编辑元素
-        editItem(item){ this.item = JSON.parse(JSON.stringify(item)); },
+        doeditItem(item){ console.log(item);this.editItem = JSON.parse(JSON.stringify(item)); },
         // 执行编辑
         async toEdit(){
             console.log(this.item)
-            let list = await apis.list.update(this.item);
+            let list = await apis.plant.update(this.editItem);
             if(list){
-                if(this.isSearch) this.getSearch();
-                else this.init();
+                this.init();       
                 s_alert.basic("修改成功~");
             }
         },
@@ -492,38 +441,15 @@ export default {
                     s_alert.Warning('验证失败','权限密码输入错误');
                     return;
                 }
-                let del = await apis.list.delete(item.id);
+                let del = await apis.plant.delete(item.id);
                 s_alert.basic("删除成功~");
                 console.log(del)
-                if(this.isSearch) this.getSearch();
-                else this.init();                
+                this.init();          
             }
         },
-        // 详细信息
-        dodetail(item){ this.detail = item; },
-        // 查找元素
-        async search(){
-            let search = this.doSearchText;
-            this.off = 0;
-            this.PageShowSum = 10;
-            this.currentPage = 0;
-            if(search){
-                this.isSearch = true;
-                this.getSearch();
-            }else{
-                this.isSearch = false;
-                this.init();
-            }
-        },
-        // 获取搜索
-        async getSearch(){
-            let search = this.doSearchText;
-            let lists = await apis.list.findAndCountAllByName(search,this.off,this.PageShowSum);
-            const { count,rows } = lists.data;
-            this.total = count;
-            this.showItems = rows;
-            this.sumPage = Math.ceil(this.total / this.PageShowSum);
-            console.log(lists.data)
+        // 显示信息
+        show(msg){
+            alert(msg);
         }
     }
 };

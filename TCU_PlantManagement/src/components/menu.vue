@@ -144,7 +144,7 @@
                     <div id="navigation">
                         <ul class="navigation-menu">
                             <li class="active">
-                                <a href="#/menu">
+                                <a href="#/menu/index">
                                     <i class="md md-home"></i>
                                     <span>首页</span>
                                 </a>
@@ -157,16 +157,19 @@
                                 </a>
                                 <ul class="submenu">
                                     <li>
-                                        <a href="javascript:void(0);">科类管理</a>
+                                        <a @click="toPlant(1)">地被管理</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);">属类管理</a>
+                                        <a @click="toPlant(2)">灌木管理</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);">种类管理</a>
+                                        <a @click="toPlant(4)">乔木管理</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);">植物列表</a>
+                                        <a @click="toPlant(5)">藤木管理</a>
+                                    </li>
+                                    <li>
+                                        <a @click="toPlant(3)">其他管理</a>
                                     </li>
                                 </ul>
                             </li>
@@ -178,13 +181,10 @@
                                 </a>
                                 <ul class="submenu">
                                     <li>
-                                        <a href="#/menu/doccreate">档案建立</a>
+                                        <a href="#/menu/kindlist">类别列表</a>
                                     </li>
                                     <li>
-                                        <a href="#/menu/docsupport">档案维护</a>
-                                    </li>
-                                    <li>
-                                        <a href="#/menu/docSearch">档案查询</a>
+                                        <a href="#/menu/plantlist">种类列表</a>
                                     </li>
                                     <li>
                                         <a href="#/menu/doclist">档案列表</a>
@@ -199,133 +199,19 @@
                                 </a>
                                 <ul class="submenu">
                                     <li>
-                                        <a href="grid.html">灌水与排水</a>
-                                    </li>
-                                    <li>
-                                        <a href="portlets.html">施肥</a>
-                                    </li>
-                                    <li>
-                                        <a href="widgets.html">苗木整形与修剪</a>
-                                    </li>
-                                    <li>
-                                        <a href="nestable-list.html">防治病虫害</a>
-                                    </li>
-                                    <li>
-                                        <a href="ui-sliders.html">Sliders</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="#">
-                                    <i class="md md-turned-in-not"></i>
-                                    <span>植物分类</span>
-                                </a>
-                                <ul class="submenu">
-                                    <li class="has-submenu">
-                                        <a href="#">茎的形态</a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="material-icon.html">乔木</a>
-                                            </li>
-                                            <li>
-                                                <a href="ion-icons.html">灌木</a>
-                                            </li>
-                                            <li>
-                                                <a href="font-awesome.html">亚灌木</a>
-                                            </li>
-                                            <li>
-                                                <a href="font-awesome.html">草本植物</a>
-                                            </li>
-                                            <li>
-                                                <a href="font-awesome.html">藤本植物</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="has-submenu">
-                                        <a href="#">生态习性</a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="gmap.html">陆生植物</a>
-                                            </li>
-                                            <li>
-                                                <a href="vector-map.html">水生植物</a>
-                                            </li>
-                                            <li>
-                                                <a href="font-awesome.html">附生植物</a>
-                                            </li>
-                                            <li>
-                                                <a href="font-awesome.html">寄生植物</a>
-                                            </li>
-                                            <li>
-                                                <a href="font-awesome.html">腐生植物</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="has-submenu">
-                                        <a href="#">生活周期</a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="inbox.html">一年生植物</a>
-                                            </li>
-                                            <li>
-                                                <a href="email-compose.html">二年生植物</a>
-                                            </li>
-                                            <li>
-                                                <a href="email-read.html">多年生植物</a>
-                                            </li>
-                                        </ul>
+                                        <a href="#/menu/prolist">养护清单</a>
                                     </li>
                                 </ul>
                             </li>
 
                             <li class="has-submenu">
                                 <a href="#">
-                                    <i class="md md-aspect-ratio"></i>
+                                    <i class="md md-invert-colors-on"></i>
                                     <span>校园风景</span>
                                 </a>
                                 <ul class="submenu">
-                                    <li class="has-submenu">
-                                        <a href="#">中心湖附近</a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="material-icon.html">中心湖</a>
-                                            </li>
-                                            <li>
-                                                <a href="ion-icons.html">鸭子湖</a>
-                                            </li>
-                                            <li>
-                                                <a href="font-awesome.html">Font awesome</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="has-submenu">
-                                        <a href="#">体育馆附近</a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="gmap.html">西门</a>
-                                            </li>
-                                            <li>
-                                                <a href="vector-map.html">体育馆</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="has-submenu">
-                                        <a href="#">滨湖道附近</a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="inbox.html">滨湖道</a>
-                                            </li>
-                                            <li>
-                                                <a href="email-compose.html">二餐门口</a>
-                                            </li>
-                                            <li>
-                                                <a href="email-read.html">小树林</a>
-                                            </li>
-                                        </ul>
+                                    <li>
+                                        <a href="#/menu/photo">风景图片</a>
                                     </li>
                                 </ul>
                             </li>
@@ -339,16 +225,16 @@
                                     <li>
                                         <ul>
                                             <li>
-                                                <a href="profile.html">系统简介</a>
+                                                <a  href="javascript:void(0)">系统简介</a>
                                             </li>
                                             <li>
-                                                <a href="timeline.html">部门介绍</a>
+                                                <a  href="javascript:void(0)">部门介绍</a>
                                             </li>
                                             <li>
-                                                <a href="invoice.html">功能介绍</a>
+                                                <a  href="javascript:void(0)">功能介绍</a>
                                             </li>
                                             <li>
-                                                <a href="email-template.html">反馈信息</a>
+                                                <a  href="javascript:void(0)">反馈信息</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -386,7 +272,7 @@
         <footer class="footer text-right yxfoot">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-6">2018 © Yexuan.</div>
+                    <div class="col-xs-6">2019 © 天津城建大学</div>
                     <div class="col-xs-6">
                         <ul class="pull-right list-inline m-b-0">
                             <li>
@@ -411,7 +297,7 @@ const cookie = require("../utils/cookie");
 const s_alert = require("../utils/alert");
 const ses = require("../utils/ses");
 const print = require("../utils/print");
-const apis = require("../interface/apis");
+const apis = require("../interface/apis").default;
 
 import { mapMutations } from 'vuex'
 
@@ -420,10 +306,10 @@ export default {
     data() {
         return {
             icon_src:
-                "http://ww3.sinaimg.cn/thumb300/005NL6H7gw1ew1tp2et08j30cj0dl0tq.jpg"
+                "https://img3.duitang.com/uploads/item/201511/28/20151128110903_CNjva.thumb.700_0.jpeg"
         };
     },
-    mounted() {
+    async mounted() {
         //默认加载 index
         this.$router.push("/menu/index");
     },
@@ -435,6 +321,13 @@ export default {
             setTimeout(function() {
                 window.location.href="/";
             }, 2000);
+        },
+        // 页面跳转
+        toPlant(kind){
+            this.$router.push({ name :'null'})
+            setTimeout(() => {
+                this.$router.push({ name: 'plant', params :{ kind }})
+            }, 50);
         }
     }
 };

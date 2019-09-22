@@ -12,14 +12,13 @@ import ceshi from '@/components/test/ceshi'
 // manage
 import index from '@/components/mange/index'
 // plant
-import ke from '@/components/plant/ke'
-import shu from '@/components/plant/shu'
-import zhong from '@/components/plant/zhong'
 import plant from '@/components/plant/plant'
+import proList from '@/components/plant/prolist'
+import photo from '@/components/plant/photo'
 // document
-import docCreate from '@/components/document/docCreate'
-import docSupport from '@/components/document/docSupport'
 import docList from '@/components/document/docList'
+import kindList from '@/components/document/kindList'
+import plantList from '@/components/document/plantList'
 import plantmap from '@/components/document/plantmap'
 
 
@@ -37,15 +36,17 @@ export default new Router({
     { path: '/ceshi', name: 'ceshi', component: ceshi },
     { path: '/menu', name: 'menu', component: menu,
       children:[
-        { path:'', redirect:'index' },
+        { path:'', name:'null' },
         { path:'index', component:index },
-        { path:'ke', component:ke },
-        { path:'shu', component:shu },
-        { path:'zhong', component:zhong },
-        { path:'plant', component:plant },
-        { path:'doccreate', component:docCreate },
-        { path:'docsupport', component:docSupport },
+
+        { path:'plant/:kind', name:'plant' ,component:plant },
+        { path:'prolist', component:proList },
+        { path:'photo', component:photo },
+
         { path:'doclist', component:docList },
+        { path:'kindlist', component:kindList },
+        { path:'plantlist', component:plantList },
+
         { path:'plantmap', component:plantmap }
       ]
     }

@@ -52,6 +52,9 @@ axios.interceptors.response.use(
                 case 432:
                     alert.Warning('登录校验失败', '账号或密码错误');
                     break;
+                case 504:
+                    alert.Warning('请求超时', '请检查网络或系统情况');
+                    break;
             }
             // 返回接口返回的错误信息
             return Promise.reject(error.response.data);
