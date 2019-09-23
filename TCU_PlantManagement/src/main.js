@@ -11,6 +11,7 @@ Vue.use(Vuex);
 
 Vue.prototype.$axios = axios
 Vue.prototype.$host = 'http://localhost:10000/'
+// Vue.prototype.$host = 'https://tree.aesen.cc/api/'
 
 Vue.component('remote-script', {
   render: function (createElement) {

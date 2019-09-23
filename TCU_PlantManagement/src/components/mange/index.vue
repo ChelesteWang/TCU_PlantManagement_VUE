@@ -52,7 +52,7 @@
                         </span>
                         <div class="mini-stat-info text-right">
                             <span class="counter" v-if="kind">{{kind.count}}</span>
-                            总共植物类型
+                            总共植物种类
                         </div>
                     </div>
                 </div>
