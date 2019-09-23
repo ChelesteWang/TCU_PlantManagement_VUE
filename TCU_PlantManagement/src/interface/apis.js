@@ -11,9 +11,11 @@ export default {
     },
     // 档案清单
     list: {
+        findAll(){ return req.postParam('api/ent/list', { 'judge': 0 }) },
         create(item) { return req.postParam('api/ent/list', { 'judge': 1, ...item }) },
         delete(id) { return req.postParam('api/ent/list', { 'judge': 2, 'id': id }) },
         update(item) { return req.postParam('api/ent/list', { 'judge': 3, ...item }) },
+        findByRand(n) { return req.postParam('api/ent/list', { 'judge': 4, 'number':n }) },
 
         findAndCountAll(o, l) { return req.postParam('api/ass/list', { 'judge': 0, 'offset': o, 'limit': l }) },
         findAndCountAllByName(n, o, l) { return req.postParam('api/ass/list', { 'judge': 2, "name":n, 'offset': o, 'limit': l }) },

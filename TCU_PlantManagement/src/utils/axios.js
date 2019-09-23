@@ -116,7 +116,7 @@ export function post(url, form, obj) {
                 resolve(res);
             })
             .catch(err => {
-                print.error(err)
+                reject(err);
             })
     });
 }

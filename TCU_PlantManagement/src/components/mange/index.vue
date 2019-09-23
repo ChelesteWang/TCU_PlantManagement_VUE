@@ -51,8 +51,8 @@
                             <i class="ion-eye"></i>
                         </span>
                         <div class="mini-stat-info text-right">
-                            <span class="counter">20544</span>
-                            总共系统访问量
+                            <span class="counter" v-if="kind">{{kind.count}}</span>
+                            总共植物类型
                         </div>
                     </div>
                 </div>
@@ -193,13 +193,14 @@ export default {
         return {
             plant:null,
             protect:null,
-            photo:null
+            photo:null,
+            kind:null
         };
     },
     async mounted() {
+        this.init();
         this.map();
         this.map_small();
-        this.init();
     },
     methods: {
         async init(){
@@ -207,44 +208,62 @@ export default {
             apis.plant.findAll().then(res=>{ this.plant = res.data })
             apis.protect.findAll().then(res=>{ this.protect = res.data })
             apis.photo.findAll().then(res=>{ this.photo = res.data })
+            apis.kind.findAll().then(res=>{ this.kind = res.data })
         },
-        map(){
+        async map(){
+            let trees = await apis.list.findByRand(25)
+            let points = trees.data[0];
+            console.log('trees---->',trees)
             //GPS坐标
-            var x = 117.088437;
-            var y = 39.092823;
-            var ggPoint = new BMap.Point(x, y);
+            let x = 117.088437;
+            let y = 39.092823;
+            let ggPoint = new BMap.Point(x, y);
 
             //主界面右侧小地图
             let map = new BMap.Map(this.$refs.allmap); // 创建Map实例
             map.centerAndZoom(ggPoint, 16); // 初始化地图,设置中心点坐标和地图级别
+            map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
             map.addControl(new BMap.NavigationControl());
 
-            //坐标转换完之后的回调函数
-            function translateCallback(data){
-            console.log(data);      
-            if(data.status === 0) {
-                    var marker = new BMap.Marker(data.points[0]);
-                    map.addOverlay(marker);
-                    // var label = new BMap.Label("叶武当前所在位置",{offset:new BMap.Size(20,-10)});
-                    // marker.setLabel(label); //添加百度label
-                    map.setCenter(data.points[0]);
-                }
+            let total = 0; //总记录数
+            let groupCount = 0; //每次转十条
+            if (points.length % 10 > 0) {
+                groupCount = (points.length / 10) + 1;
             }
-
-            setTimeout(function(){
-                var convertor = new BMap.Convertor();
-                var pointArr = [];
-                pointArr.push(ggPoint);
-                convertor.translate(pointArr, 1, 5,translateCallback)          
-            }, 1000);
-            map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+            else {
+                groupCount = (points.length / 10);
+            }
+            //外层循环，有多少组十条
+            for(let i=0;i<groupCount;i++){
+                let pos = new Array();
+                //内层循环，每组十条
+                for(let j=0;j<10;j++){
+                    //不超过总记录数结束
+                    if(total<points.length){
+                        let point = new BMap.Point(points[(i * 10) + j].lon,points[(i * 10) + j].lat);
+                        pos.push(point);
+                    }
+                    total++;
+                }
+                let convertor = new BMap.Convertor();
+                convertor.translate(pos, 1, 5, function(data){
+                    console.log('translateCallback',data);
+                    if(data.status === 0) {
+                        for (let i = 0; i < data.points.length; i++) {
+                            let PointCollection = new BMap.PointCollection(data.points);
+                            map.addOverlay(PointCollection);
+                            map.setCenter(data.points[i]);
+                        }
+                    }
+                });
+            }
         },
         map_small() {
 
             //GPS坐标
-            var x = 117.088437;
-            var y = 39.092823;
-            var ggPoint = new BMap.Point(x, y);
+            let x = 117.088437;
+            let y = 39.092823;
+            let ggPoint = new BMap.Point(x, y);
 
             //主界面右侧小地图
             let map1 = new BMap.Map(this.$refs.allmap1); // 创建Map实例
@@ -255,17 +274,17 @@ export default {
             function translateCallback(data){
             console.log(data);      
             if(data.status === 0) {
-                    var marker = new BMap.Marker(data.points[0]);
+                    let marker = new BMap.Marker(data.points[0]);
                     map1.addOverlay(marker);
-                    // var label = new BMap.Label("转换后的百度坐标（正确）",{offset:new BMap.Size(20,-10)});
+                    // let label = new BMap.Label("转换后的百度坐标（正确）",{offset:new BMap.Size(20,-10)});
                     // marker.setLabel(label); //添加百度label
                     map1.setCenter(data.points[0]);
                 }
             }
 
             setTimeout(function(){
-                var convertor = new BMap.Convertor();
-                var pointArr = [];
+                let convertor = new BMap.Convertor();
+                let pointArr = [];
                 pointArr.push(ggPoint);
                 convertor.translate(pointArr, 1, 5,translateCallback)          
             }, 1000);

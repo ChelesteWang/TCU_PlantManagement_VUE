@@ -36,7 +36,7 @@ export default new Router({
     { path: '/ceshi', name: 'ceshi', component: ceshi },
     { path: '/menu', name: 'menu', component: menu,
       children:[
-        { path:'', name:'null' },
+        { path:'/', name:'index',component:index },
         { path:'index', component:index },
 
         { path:'plant/:kind', name:'plant' ,component:plant },

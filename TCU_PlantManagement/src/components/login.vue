@@ -95,7 +95,7 @@ export default {
                             userinfo: res.data
                         });
                         s_alert.Success( "登录成功！", "现在可以对系统进行设置", "success" );
-                        this.$router.push({ name: "menu" });
+                        this.$router.push('/menu/index');
                     }else{
                         s_alert.Success( "没有权限进入！", "此系统仅限管理员能操作", "warning" )
                     }

@@ -10,8 +10,7 @@ Vue.use(Vuex);
 
 
 Vue.prototype.$axios = axios
-Vue.prototype.$uploadpath = 'https://www.exiaopin.cn/api/upload'
-Vue.prototype.$host = 'https://www.exiaopin.cn/api/'
+Vue.prototype.$host = 'http://localhost:10000/'
 
 Vue.component('remote-script', {
   render: function (createElement) {

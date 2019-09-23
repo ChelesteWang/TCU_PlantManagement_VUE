@@ -311,7 +311,7 @@ export default {
     },
     async mounted() {
         //默认加载 index
-        this.$router.push("/menu/index");
+        // this.$router.push("/menu/index");
     },
     methods: {
         ...mapMutations(['LOGOUT']),
@@ -324,7 +324,7 @@ export default {
         },
         // 页面跳转
         toPlant(kind){
-            this.$router.push({ name :'null'})
+            this.$router.push({ name :'menu'})
             setTimeout(() => {
                 this.$router.push({ name: 'plant', params :{ kind }})
             }, 50);

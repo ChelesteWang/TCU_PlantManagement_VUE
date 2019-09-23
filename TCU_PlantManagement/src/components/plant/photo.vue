@@ -64,7 +64,11 @@
                                     <td>{{index}}</td>
                                     <td>{{item.id}}</td>
                                     <td>{{item.name}}</td>
-                                    <td>{{item.photo}}</td>
+                                    <td>
+                                        <a :href="$host+item.photo" class="image-popup" title="Screenshot-1">
+                                            <img :src="$host+item.photo" alt="logo" class="img-thumbnail img-responsive" style="width:150px;height:150px;">
+                                        </a>
+                                    </td>
                                     <td>{{item.created_at}}</td>
                                     <td>{{item.updated_at}}</td>
                                     
@@ -138,9 +142,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">图片</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" v-model="createItem.photo">
-                                            </div>
+                                                <div class="col-md-10"> <input type="file" id="file" class="form-control" value="上传图片"  @change="selectImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"/> </div>
                                         </div>
                                     </form>
                                 </div>
@@ -165,6 +167,7 @@ const s_alert = require("../../utils/alert");
 const ses = require("../../utils/ses");
 const print = require("../../utils/print");
 const apis = require("../../interface/apis").default;
+const req = require('../../utils/axios');
 
 import { mapMutations } from "vuex";
 
@@ -237,7 +240,7 @@ export default {
         async toCreat(){
             console.log(this.createItem);
             const { name,photo } = this.createItem;
-            if( !name ){
+            if( !name || !photo ){
                 s_alert.Warning("档案新建失败","不能输入有空喔~")
                 return;
             }
@@ -261,7 +264,23 @@ export default {
                 console.log(del)
                 this.init();          
             }
-        }
+        },
+        // 上传大图
+        selectImg(){
+            var that = this; s_alert.basic('图片上传中……')
+            let formData=new FormData();
+            formData.append('file', document.getElementById('file').files[0] );   // 通过formdata上传
+            req.post('api/upload',formData,{ method: 'post', headers: {'Content-Type': 'multipart/form-data'} })
+            .then( (res)=> {
+                print.log(res.data.info);
+                s_alert.Success('图片上传成功','','success')
+                that.createItem.photo = res.data.info
+            }).catch( (error)=> {
+                console.log(error);
+                that.createItem.photo = null
+                s_alert.Warning('图片上传失败','请检查网络状况，必要情况联系技术人员')
+            })
+        },
     }
 };
 </script>

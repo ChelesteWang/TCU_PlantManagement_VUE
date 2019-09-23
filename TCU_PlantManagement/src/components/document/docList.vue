@@ -103,6 +103,9 @@
                                     <td>{{item.kind.name}}</td>
                                     
                                     <td class="actions" >
+                                        <label @click="getLocation(item)" data-toggle="modal" data-target="#location">
+                                            <i class="fa fa-location-arrow" data-toggle="tooltip" data-placement="top" title="位置"></i>
+                                        </label>
                                         <label @click="dodetail(item.plant)" data-toggle="modal" data-target="#Model">
                                             <i class="fa fa-navicon" data-toggle="tooltip" data-placement="top" title="信息"></i>
                                         </label>
@@ -248,6 +251,32 @@
             </div>
         </div>
 
+        <!-- 档案定位信息 -->
+        <div id="location" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width:55%">
+                <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">档案定位信息</h4>
+                </div>
+                    <div class="modal-body" align='center'>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body" style="height:50vh">
+                                        <!-- 地图 -->
+                                        <div id="app" style="height:100%; width:100%">
+                                            <div id="gpslocation" ref="gpslocation"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>         
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 档案详细信息 -->
         <div id="Model" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true">
             <div class="modal-dialog" style="width:55%">
@@ -387,7 +416,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -484,6 +512,56 @@ export default {
             if(this.isSearch) this.getSearch();
             else this.init();
         },
+        // 定位
+        getLocation(item){
+            const { x,y,height,lon,lat,name,card,kind } = item;
+            console.log(item)
+            //GPS坐标
+            var ggPoint = new BMap.Point(lon, lat);
+
+            //主界面右侧小地图
+            let map = new BMap.Map(this.$refs.gpslocation); // 创建Map实例
+            map.centerAndZoom(ggPoint, 18); // 初始化地图,设置中心点坐标和地图级别
+            map.addControl(new BMap.NavigationControl());
+
+            //坐标转换完之后的回调函数
+            function translateCallback(data){
+                console.log(data);      
+                if(data.status === 0) {
+                    var marker = new BMap.Marker(data.points[0]);
+                    map.addOverlay(marker);
+                    // var label = new BMap.Label("叶武当前所在位置",{offset:new BMap.Size(30,-10)});
+                    // marker.setLabel(label); //添加百度label
+                    map.setCenter(data.points[0]);
+
+                    let opts = {    
+                        width : 250,     // 信息窗口宽度    
+                        height: 100,     // 信息窗口高度    
+                        title : name+'-'+kind.name+'-'+card  // 信息窗口标题   
+                    }   
+                    let detail = `
+                    位置经度：${x},<br>
+                    位置纬度：${y},<br>
+                    位置高度：${height},<br>
+                    lon:${lon},
+                    lat:${lat}
+                    ` 
+                    let infoWindow = new BMap.InfoWindow(detail, opts);  // 创建信息窗口对象    
+                    map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
+
+                    marker.addEventListener("click", function(e){    
+                        map.openInfoWindow(infoWindow, new BMap.Point(e.point.lng, e.point.lat));      // 打开信息窗口
+                    });
+                }
+            }
+            setTimeout(function(){
+                var convertor = new BMap.Convertor();
+                var pointArr = [];
+                pointArr.push(ggPoint);
+                convertor.translate(pointArr, 1, 5,translateCallback)          
+            }, 200);
+            map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放            
+        },
         // 创建元素
         async toCreat(){
             console.log(this.createItem);
@@ -554,3 +632,9 @@ export default {
     }
 };
 </script>
+<style scoped>
+#gpslocation {
+    height: 100%;
+    overflow: hidden;
+}
+</style>
