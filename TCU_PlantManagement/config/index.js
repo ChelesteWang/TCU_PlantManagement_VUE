@@ -9,6 +9,7 @@ module.exports = {
     proxyTable: {
       '/api': {
         target: 'http://localhost:10000', // 请换成你的地址
+        // target: 'https://tree.aesen.cc/api',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

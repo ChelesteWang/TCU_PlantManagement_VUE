@@ -205,10 +205,10 @@ export default {
     methods: {
         async init(){
             // 获取数据
-            apis.plant.findAll().then(res=>{ this.plant = res.data })
+            apis.list.findAll().then(res=>{ this.plant = res.data })
             apis.protect.findAll().then(res=>{ this.protect = res.data })
             apis.photo.findAll().then(res=>{ this.photo = res.data })
-            apis.kind.findAll().then(res=>{ this.kind = res.data })
+            apis.plant.findAll().then(res=>{ this.kind = res.data })
         },
         async map(){
             let trees = await apis.list.findByRand(25)
