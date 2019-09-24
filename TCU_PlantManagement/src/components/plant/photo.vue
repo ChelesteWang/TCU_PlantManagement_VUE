@@ -66,7 +66,7 @@
                                     <td>{{item.name}}</td>
                                     <td>
                                         <a :href="$host+item.photo" class="image-popup" title="Screenshot-1">
-                                            <img :src="$host+item.photo" alt="logo" class="img-thumbnail img-responsive" style="width:150px;height:150px;">
+                                            <img :src="'api/'+item.photo" alt="logo" class="img-thumbnail img-responsive" style="width:150px;height:150px;">
                                         </a>
                                     </td>
                                     <td>{{item.created_at}}</td>
