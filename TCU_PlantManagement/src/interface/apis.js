@@ -56,5 +56,15 @@ export default {
         update(item) { return req.postParam('api/ent/photo', { 'judge': 3, ...item }) },
 
         findAndCountAll(o, l) { return req.postParam('api/ass/photo', { 'judge': 0, 'offset': o, 'limit': l }) }
-    }
+    },
+    // 用户反馈
+    call: {
+        findAll(){ return req.postParam('api/ent/callback', { 'judge': 0 }) },
+        create(item) { return req.postParam('api/ent/callback', { 'judge': 1, ...item }) },
+        delete(id) { return req.postParam('api/ent/callback', { 'judge': 2, 'id': id }) },
+        update(item) { return req.postParam('api/ent/callback', { 'judge': 3, ...item }) },
+
+        findAndCountAll(o, l) { return req.postParam('api/ass/callback', { 'judge': 0, 'offset': o, 'limit': l }) },
+        findOneById(id) { return req.postParam('api/ass/callback', { 'judge': 1, 'id':id }) }
+    },
 }

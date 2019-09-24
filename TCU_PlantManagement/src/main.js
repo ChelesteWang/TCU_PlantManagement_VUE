@@ -4,14 +4,14 @@ import router from './router'
 import axios from 'axios'
 import Vuex from 'vuex'
 import store from './vuex/index'
+const host = require('../config/host')
 
 Vue.config.productionTip = false
 Vue.use(Vuex);
 
 
 Vue.prototype.$axios = axios
-Vue.prototype.$host = 'http://localhost:10000/'
-// Vue.prototype.$host = 'https://tree.aesen.cc/api/'
+Vue.prototype.$host = host
 
 Vue.component('remote-script', {
   render: function (createElement) {

@@ -15,6 +15,7 @@ import index from '@/components/mange/index'
 import plant from '@/components/plant/plant'
 import proList from '@/components/plant/prolist'
 import photo from '@/components/plant/photo'
+import calllist from '@/components/plant/calllist'
 // document
 import docList from '@/components/document/docList'
 import kindList from '@/components/document/kindList'
@@ -42,6 +43,7 @@ export default new Router({
         { path:'plant/:kind', name:'plant' ,component:plant },
         { path:'prolist', component:proList },
         { path:'photo', component:photo },
+        { path:'callback', component:calllist },
 
         { path:'doclist', component:docList },
         { path:'kindlist', component:kindList },

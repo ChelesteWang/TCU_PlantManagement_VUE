@@ -1,5 +1,6 @@
 'use strict'
 const path = require('path')
+const host = require('../config/host')
 
 module.exports = {
   dev: {
@@ -8,8 +9,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://localhost:10000', // 请换成你的地址
-        // target: 'https://tree.aesen.cc/api',
+        target: host,
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
