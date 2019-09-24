@@ -1,4 +1,4 @@
-let plat = 'dev';         // dev.开发环境，mas.正式环境
+let plat = process.argv[2] || 'dev';         // dev.开发环境，mas.正式环境
 let host ;
 
 if(plat === 'dev'){
