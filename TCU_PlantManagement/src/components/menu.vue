@@ -308,8 +308,7 @@ export default {
     name: "menus",
     data() {
         return {
-            icon_src:
-                "https://img3.duitang.com/uploads/item/201511/28/20151128110903_CNjva.thumb.700_0.jpeg"
+            icon_src: this.$host+'www/logo/logo.jpeg'               
         };
     },
     async mounted() {

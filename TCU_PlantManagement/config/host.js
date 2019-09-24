@@ -1,12 +1,12 @@
-const dev = 0 ;     // 0.开发环境，1.正式环境
+let plat = process.argv[2];         // dev.开发环境，master.正式环境
 let host ;
-// target: 'http://localhost:10000',
-// target: 'https://tree.aesen.cc/api',
 
-if(dev === 0){
-    host = 'http://localhost:10000'
+if(plat === 'master'){
+    host = 'https://tree.aesen.cc/api/'
 }else{
-    host = 'https://tree.aesen.cc/api'
+    plat = 'dev'
+    host = 'http://localhost:10000/'
 }
 
+console.warn('当前运行环境为:',plat,'\n指向服务器host地址为:',host);
 module.exports = host;
