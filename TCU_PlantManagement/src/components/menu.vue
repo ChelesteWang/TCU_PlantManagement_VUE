@@ -202,14 +202,14 @@
                                         <a href="#/menu/prolist">养护清单</a>
                                     </li>
                                     <li>
-                                        <a href="#/menu/callback">用户反馈</a>
+                                        <a href="#/menu/callback">师生反馈</a>
                                     </li>
                                 </ul>
                             </li>
 
                             <li class="has-submenu">
                                 <a href="#">
-                                    <i class="md md-invert-colors-on"></i>
+                                    <i class="md md-remove-red-eye"></i>
                                     <span>校园风景</span>
                                 </a>
                                 <ul class="submenu">
