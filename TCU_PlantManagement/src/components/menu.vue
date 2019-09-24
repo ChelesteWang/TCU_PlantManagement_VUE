@@ -308,7 +308,7 @@ export default {
     name: "menus",
     data() {
         return {
-            icon_src: this.$host+'www/logo/logo.jpeg'               
+            icon_src: 'api/www/logo/logo.jpeg'               
         };
     },
     async mounted() {
