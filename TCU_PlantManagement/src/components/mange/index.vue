@@ -16,7 +16,7 @@
                             <i class="ion-ios7-location"></i>
                         </span>
                         <div class="mini-stat-info text-right">
-                            <span class="counter" v-if="plant">{{plant.count}}</span>
+                            <span class="counter" v-if="plant">{{plant}}</span>
                             总共植物数量
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                             <i class="md md-aspect-ratio"></i>
                         </span>
                         <div class="mini-stat-info text-right">
-                            <span class="counter" v-if="photo">{{photo.count}}</span>
+                            <span class="counter" v-if="photo">{{photo}}</span>
                             总共校园风景
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                             <i class="md md-invert-colors-on"></i>
                         </span>
                         <div class="mini-stat-info text-right">
-                            <span class="counter" v-if="protect">{{protect.count}}</span>
+                            <span class="counter" v-if="protect">{{protect}}</span>
                             植物养护次数
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                             <i class="ion-eye"></i>
                         </span>
                         <div class="mini-stat-info text-right">
-                            <span class="counter" v-if="kind">{{kind.count}}</span>
+                            <span class="counter" v-if="kind">{{kind}}</span>
                             总共植物种类
                         </div>
                     </div>
@@ -205,10 +205,10 @@ export default {
     methods: {
         async init(){
             // 获取数据
-            apis.list.findAll().then(res=>{ this.plant = res.data })
-            apis.protect.findAll().then(res=>{ this.protect = res.data })
-            apis.photo.findAll().then(res=>{ this.photo = res.data })
-            apis.plant.findAll().then(res=>{ this.kind = res.data })
+            apis.list.count().then(res=>{ this.plant = res.data.number })
+            apis.protect.count().then(res=>{ this.protect = res.data.number })
+            apis.photo.count().then(res=>{ this.photo = res.data.number })
+            apis.plant.count().then(res=>{ this.kind = res.data.number })
         },
         async map(){
             let trees = await apis.list.findByRand(25)

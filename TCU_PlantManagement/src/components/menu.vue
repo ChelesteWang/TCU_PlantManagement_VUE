@@ -314,6 +314,12 @@ export default {
     async mounted() {
         //默认加载 index
         // this.$router.push("/menu/index");
+        setInterval(() => {
+            if(localStorage.getItem('isLogin') != 1){
+                s_alert.basic("缺少登录态");
+                window.location.href="/";
+            }
+        }, 5000);
     },
     methods: {
         ...mapMutations(['LOGOUT']),

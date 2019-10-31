@@ -16,6 +16,7 @@ export default {
         delete(id) { return req.postParam('api/ent/list', { 'judge': 2, 'id': id }) },
         update(item) { return req.postParam('api/ent/list', { 'judge': 3, ...item }) },
         findByRand(n) { return req.postParam('api/ent/list', { 'judge': 4, 'number':n }) },
+        count() { return req.postParam('api/ent/list', { 'judge': 6 }) },
 
         findAndCountAll(o, l) { return req.postParam('api/ass/list', { 'judge': 0, 'offset': o, 'limit': l }) },
         findAndCountAllByName(n, o, l) { return req.postParam('api/ass/list', { 'judge': 2, "name":n, 'offset': o, 'limit': l }) },
@@ -36,6 +37,7 @@ export default {
         create(item) { return req.postParam('api/ent/plant', { 'judge': 1, ...item }) },
         delete(id) { return req.postParam('api/ent/plant', { 'judge': 2, 'id': id }) },
         update(item) { return req.postParam('api/ent/plant', { 'judge': 3, ...item }) },
+        count() { return req.postParam('api/ent/plant', { 'judge': 5 }) },
 
         findAndCountAll(o, l) { return req.postParam('api/ass/plant', { 'judge': 0, 'offset': o, 'limit': l }) }
     },
@@ -45,6 +47,7 @@ export default {
         create(item) { return req.postParam('api/ent/protect', { 'judge': 1, ...item }) },
         delete(id) { return req.postParam('api/ent/protect', { 'judge': 2, 'id': id }) },
         update(item) { return req.postParam('api/ent/protect', { 'judge': 3, ...item }) },
+        count() { return req.postParam('api/ent/protect', { 'judge': 4 }) },
 
         findAndCountAll(o, l) { return req.postParam('api/ass/protect', { 'judge': 0, 'offset': o, 'limit': l }) }
     },
@@ -54,6 +57,7 @@ export default {
         create(item) { return req.postParam('api/ent/photo', { 'judge': 1, ...item }) },
         delete(id) { return req.postParam('api/ent/photo', { 'judge': 2, 'id': id }) },
         update(item) { return req.postParam('api/ent/photo', { 'judge': 3, ...item }) },
+        count() { return req.postParam('api/ent/photo', { 'judge': 4 }) },
 
         findAndCountAll(o, l) { return req.postParam('api/ass/photo', { 'judge': 0, 'offset': o, 'limit': l }) }
     },

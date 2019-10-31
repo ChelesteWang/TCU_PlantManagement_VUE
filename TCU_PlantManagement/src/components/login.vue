@@ -90,6 +90,7 @@ export default {
                         let token = res.data.token || 'token'
                         localStorage.setItem('token', token) //存储token
                         localStorage.setItem('user', JSON.stringify(res.data)) //存储 userinfo
+                        localStorage.setItem('isLogin', 1) //存储 userinfo
                         this.LOGIN({
                             token: token,
                             userinfo: res.data
